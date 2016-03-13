@@ -15,17 +15,10 @@ label,summary{cursor:default;}
 a,button{cursor:pointer;}
 h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:normal;}
 del,ins,u,s,a,a:hover{text-decoration:none;}
-body,textarea,input,button,select,legend{font:12px/1.25 helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","宋体";color:#333;outline:0;}
-body{background:#fff;}
+body,textarea,input,button,select,legend{font:14px/1.25 helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","宋体";color:#333;outline:0;}
+body{background:#f8f8f8;}
 a,a:hover{color:#1d1d1d;}
 button,input[type="button"],input[type="submit"],input[type="reset"]{-webkit-appearance:none;}
-input{-webkit-appearance:none;}
-input::-ms-clear,input::-ms-reveal{display:none;}
-input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
-:-moz-placeholder{color:#999 !important;font-weight:normal !important;}
-::-moz-placeholder{color:#999 !important;font-weight:normal !important;}
-:-ms-input-placeholder{color:#999 !important;font-weight:normal !important;}
-::-webkit-input-placeholder{color:#999 !important;font-weight:normal !important;}
 html,body{width:100%;height:100%;}
 
 /* function */
@@ -37,47 +30,88 @@ html,body{width:100%;height:100%;}
 .f-lh0{line-height:15px;}
 .f-fl{float:left;}
 .f-fr{float:right;}
+.f-shadow{box-shadow:-1px 1px 1px #ecebeb,1px 1px 2px #d4d3d3;}
 
-.g-doc{}
-.g-hd{}
+/*status*/
+.z-tab-acv{background-color:#39a030;z-index:200;color:#fff;}
+
+.g-doc{position:relative;}
+.g-hd{background:#fff;}
 .g-bd{}
 
-.g-mn{}
-.g-mnc{}
-.g-sd{}
-.g-ft{}
+.g-mn{margin:0 auto;margin-top:84px;width:1207px;}
+.g-mnc{width:960px;}
+.g-sd{width:224px;}
+.g-sd .u-title{position:relative;width:223px;height:55px;border-bottom:1px solid #ecebeb;}
+.g-sd .u-title h3{display:inline-block;position:absolute;top:19px;left:20px;font-size:16px;} 
+.g-ft{background:#2c3339;height:262px;padding-top:90px;}
 
 .m-top{width:1190px;margin:0 auto;height: 22px;padding:33px 0 34px;}
 .m-top .m-logo{width:238px;}
 .m-top .m-logo h1{width:155px;height:26px;padding-left: 83px;background:url(images/sprite.png)  no-repeat -205px 4px;font-size: 22px;line-height:26px;}
 .m-top .m-favor{margin-left:31px; height:26px; line-height:26px; } .m-favor .u-btn1{background:url(images/sprite.png) no-repeat -142px 0px; width:56px; height:21px; display:inline-block; font-size:12px; text-align:center; line-height:21px; color: #fff; }
 .m-top .m-favor .u-fan{margin-left:14px; }
-.m-top .m-nav{}
-.m-top .m-nav>a{margin-right:54px;display:inline-block;height:22px;line-height:22px;font-size:18px;}
+.m-top .m-nav{width:452px;}
+.m-top .m-nav>a{margin-left:54px;height:22px;line-height:22px;font-size:16px;}
 .m-top .m-nav>a:hover{color:green;}
-.m-top .m-nav .u-icn{margin:0px 0px 0px -20px;width:18px;height:18px;background:url(images/sprite.png) no-repeat -11px 0px;}
+.m-top .m-nav .u-icn{display:block;margin-left:0px;width:18px;height:18px;background:url(images/sprite.png) no-repeat -11px 0px;}
 .m-top .m-nav .u-icn:hover{background:url(images/sprite.png) no-repeat -31px 0px;}
 
 .m-tips{display:none;}
 
 .m-wrap{text-align:center;}
 .m-sld{display:inline-block}
-.m-sld img{width:1652px;height:460px;}
-.m-wrap .m-nav{}
-.m-wrap 
+.m-sld img{width:1616px;height:460px;}
+.m-wrap .m-nav1{width:1206px;height:298px;margin:0 auto;}
+.m-wrap .m-nav1 .m-ad{width:402px;}
+.m-wrap .m-nav1 .m-ad .m-icon{width:80px;position:relative;}
+.m-wrap .m-nav1 .m-ad .m-icon .u-icon{position:absolute;top:69px;left:5px;width:80px;height:80px;}
+.m-wrap .m-nav1 .m-ad .m-icon .u-i1{background:url(images/sprite.png) no-repeat -5px -55px;}
+.m-wrap .m-nav1 .m-ad .m-icon .u-i2{background:url(images/sprite.png) no-repeat -89px -55px;}
+.m-wrap .m-nav1 .m-ad .m-icon .u-i3{background:url(images/sprite.png) no-repeat -173px -55px;}
+.m-wrap .m-nav1 .m-ad .m-info{margin:61px 0 0 105px;clear:both;text-align:left;}
+.m-wrap .m-nav1 .m-ad .m-info h3{font-size:20px;margin-bottom:20px;}
+.m-wrap .m-nav1 .m-ad .m-info p{display:block;width:238px;font-size:20px;margin-bottom:20px;text-align:justify;font-size:14px;}
+.m-wrap .m-nav1 .m-ad .m-info a{display:inline-block;margin-top:35px;color:green;}
+.m-wrap .m-nav1 .m-ad .m-info a:hover{text-decoration:underline;}
 
-.m-tab{}
-.m-tab li{}
+.m-wrap .m-imgs{display:table;table-layout:fixed;width:1652px;margin:0 auto;}
+.m-wrap .m-imgs img{width:320px;height:220px;}
+
+.m-tab{background-color:#fff;width:401px;height:51px;z-index:210;}
+.m-tab li a{display:inline-block;width:200px;height:50px;line-height:50px;font-size:20px;text-align:center;color:#000;}
 
 .m-ct{}
 .m-list1{}
 .m-list1 li{}
 .m-pager{}
 
-.m-ad{}
-.g-sd h3{}
-.u-video{}
+.m-intro{width:226px;height:232px;background-color:#fff;}
+.m-intro .u-video{margin:20px auto;width:170px;}
+.m-intro .u-video p{margin-bottom:9px;}
+.m-intro .u-video video{cursor:pointer;}
 
-.m-top{}
-.m-list2{}
-.m-list2 li{}
+.m-rank{width:226px;height:778px;background-color:#fff;margin-top:19px;}
+.m-rank .m-list2{width:188px;height:682px;margin:20px 0 0 20px;}
+.m-list2 li{margin-bottom:19px;}
+.m-list2 li img{width:50px;height:50px;}
+.m-list2 li .u-info{margin-left:62px;}
+.m-list2 li .u-info h4{display:inline-block;width:126px;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.m-list2 li .u-info span{display:inline-block;margin-top:12px;background:url(images/sprite.png) no-repeat -284px -30px;padding-left:16px;}
+
+.m-foot{width:1206px;margin:0 auto;height:90px;color:#6b6f71;}
+.m-foot .m-logo{width:395px;margin-left:50px;}
+.m-foot .m-logo h1{width:155px;height:26px;padding-left: 83px;background:url(images/sprite.png)  no-repeat -205px 4px;font-size: 22px;line-height:26px;color:#fff;}
+.m-foot .m-logo span{display:inline-block;margin-top:15px;font-size:12.5px;line-height:26px;}
+
+.m-foot .m-about{margin-right:209px;width:410px;}
+.m-box1,.m-box2,.m-box3{margin-top:-10px;}
+.m-box1{margin-right:96px;}
+.m-box2{margin-right:72px;}
+.m-box2{margin-right:72px;}
+.m-foot .m-about .u-t{font-size:12.5px;margin-bottom:2px}
+.m-foot .m-about span{display:inline-block;line-height:28px;}
+.m-foot .m-about a{color:#6b6f71;}
+.m-foot .m-about a:hover{text-decoration:underline;}
+.m-foot .m-about .u-wb{display:inline-block;width:22px;height:18px;background:url(images/sprite.png) no-repeat -277px -55px;vertical-align:middle;}
+
