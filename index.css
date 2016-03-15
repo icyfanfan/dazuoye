@@ -60,8 +60,30 @@ html,body{width:100%;height:100%;}
 .m-tips{display:none;}
 
 .m-wrap{text-align:center;}
-.m-sld{display:inline-block}
-.m-sld img{width:1616px;height:460px;}
+.m-sld-wrap{position:relative;display:inline-block;width:1616px;height:460px;}
+.m-slider,.m-slider .u-slider{width:100%;height:100%;}
+.m-slider .u-slider{
+  position: absolute;
+  top:0;
+  left: 0;
+  text-align: center;
+  background-color: #fff;
+
+}
+.m-slider .u-slider img{
+
+  position: absolute;
+  top:0;
+  left: 0;
+  max-width: 100%;
+
+}
+
+.m-slider .u-slider .z-active{transition: opacity .5s ease-in;}
+.m-sld-wrap .u-pointer {z-index: 10;position: absolute;bottom: 10px;left: 50%;-ms-transform: translateX(-50%);transform: translateX(-50%);}
+.m-sld-wrap .u-pointer i{width: 10px;height: 10px;background-color: #fff;-ms-border-radius: 10px;border-radius: 10px;display: inline-block;vertical-align:bottom;margin-left: 5px;}
+.m-sld-wrap .u-pointer .z-active{background-color: #000;}
+
 .m-wrap .m-nav1{width:1206px;height:298px;margin:0 auto;}
 .m-wrap .m-nav1 .m-ad{width:402px;}
 .m-wrap .m-nav1 .m-ad .m-icon{width:80px;position:relative;}
