@@ -31,6 +31,7 @@ html,body{width:100%;height:100%;}
 .f-fl{float:left;}
 .f-fr{float:right;}
 .f-shadow{box-shadow:-1px 1px 1px #ecebeb,1px 1px 2px #d4d3d3;}
+.f-oh{overflow:hidden;}
 
 /*status*/
 .z-tab-acv{background-color:#39a030;z-index:200;color:#fff;}
@@ -62,27 +63,12 @@ html,body{width:100%;height:100%;}
 .m-wrap{text-align:center;}
 .m-sld-wrap{position:relative;display:inline-block;width:1616px;height:460px;}
 .m-slider,.m-slider .u-slider{width:100%;height:100%;}
-.m-slider .u-slider{
-  position: absolute;
-  top:0;
-  left: 0;
-  text-align: center;
-  background-color: #fff;
-
-}
-.m-slider .u-slider img{
-
-  position: absolute;
-  top:0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-}
+.m-slider .u-slider{position: absolute;top:0;left: 0;text-align: center;background-color: #fff;}
+.m-slider .u-slider img{position: absolute;top:0;left: 0;width: 100%;height: 100%;cursor:pointer;}
 
 .m-slider .u-slider .z-active{transition: opacity .5s ease-in;}
 .m-sld-wrap .u-pointer {z-index: 10;position: absolute;bottom: 10px;left: 50%;-ms-transform: translateX(-50%);transform: translateX(-50%);}
-.m-sld-wrap .u-pointer i{width: 10px;height: 10px;background-color: #fff;-ms-border-radius: 10px;border-radius: 10px;display: inline-block;vertical-align:bottom;margin-left: 5px;}
+.m-sld-wrap .u-pointer i{width: 10px;height: 10px;background-color: #fff;-ms-border-radius: 10px;border-radius: 10px;display: inline-block;vertical-align:bottom;margin-left: 5px;cursor:pointer;}
 .m-sld-wrap .u-pointer .z-active{background-color: #000;}
 
 .m-wrap .m-nav1{width:1206px;height:298px;margin:0 auto;}
@@ -115,7 +101,8 @@ html,body{width:100%;height:100%;}
 .m-intro .u-video video{cursor:pointer;}
 
 .m-rank{width:226px;height:778px;background-color:#fff;margin-top:19px;}
-.m-rank .m-list2{width:188px;height:682px;margin:20px 0 0 20px;}
+.m-rank-wrap{display:relative;width:188px;height:682px;margin:20px 0 0 20px;}
+.m-rank .m-list2{display:absolute;top:0px;left:0px;}
 .m-list2 li{margin-bottom:19px;}
 .m-list2 li img{width:50px;height:50px;}
 .m-list2 li .u-info{margin-left:62px;}
