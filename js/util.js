@@ -24,22 +24,72 @@ var util = (function() {
                 elem.attachEvent('on' + type, listener);
             }
         },
+        // 简单的模板插值<%%>
         parseTemplate: function(tpl, data) {
             var re = /<%([^%>]+)?%>/g;
             while(match = re.exec(tpl)) {
                 tpl = tpl.replace(match[0], data[match[1]])
             }
             return tpl;
-        }
+        },
         html2node:function (str) {
             var container = document.createElement('div');
             container.innerHTML = str;
             return container.children[0];
         },
+        // 默认连接符,
+        object2string:function(obj,split,encode){
+            if(!obj){
+                return '';
+            }
+            var _arr = [];
+            for (_key in obj){
+                if (!obj.hasOwnProperty(_key)){
+                    continue;
+                }
+                var _value = obj[_key];
+                // 不处理function类型
+                if (this.type(_value) === 'function'){
+                    continue;
+                } else if(this.type(_value) === 'date'){
+                    _value = _value.getTime();
+                } else if(this.type(_value) === 'array'){
+                    _value = _value.join(',');
+                } else if(this.type(_value) === 'object'){
+                    _value = JSON.stringify(_value);
+                }
+                if(!!encode){
+                    _value =  encodeURIComponent(_value);
+                }
+                _arr.push(encodeURIComponent(_key)+'='+_value);
+            }
+            return _arr.join(split||',')
+        },
         ajax:function(opt){
-            var xhr = new XMLHttpRequest();
+            var _xhr = new XMLHttpRequest();
+            _xhr.onreadystatechange = function(){
+                if(_xhr.readyState == 4&&_xhr.status==200){
+                    if(!!opt.success){
+                        opt.success(_xhr.responseText)
+                    }
+                    
+                }
+            };      
+            if (opt.type == 'post') {
+                _xhr.open('post',opt.url,opt.async||true);
+                _xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                _xhr.send(this.object2string(opt.data,'&',true)||'');
+            } else if(opt.type == 'get'){
+                var _query = '?' + this.object2string(opt.data,'&',true)||'';
+                _xhr.open('get',opt.url+_query,opt.async||true);                
+                _xhr.send();
+            }
             
-        }
+        },
+        // 判断基本类型和内置对象类型
+        type:function(obj){
+            return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase();  
+        },
         emitter: {
             // 注册事件
             on: function(event, fn) {

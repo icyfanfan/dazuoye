@@ -3,6 +3,21 @@
     var $ = function( selector ){
         return [].slice.call(document.querySelectorAll(selector))
     }
+    // 定时器
+    var silderInterval,hotInterval;
+    var applySliderTimer = function(){        
+        silderInterval = setTimeout(function(){         
+            slider.next();   
+            applySliderTimer();            
+        },5000);                
+    };
+    var applyHotTimer = function(){
+        return setInterval(function(){
+            hotList.next();       
+        },5000);
+    };
+    applySliderTimer();
+    hotInterval = applyHotTimer();
     /* silder相关初始化与事件绑定注册 */
     var sliderContainer =  $('.m-sld-wrap')[0];
     var silderCursors = $('.u-pointer i');
@@ -22,10 +37,10 @@
         {'src':'./images/banner3.jpg','href':'http://www.icourse163.org/'}        
         ],
         onMouseOver: function(){
-            clearInterval(silderInterval);
+            clearTimeout(silderInterval);
          },
          onMouseOut: function(){
-            silderInterval = applyTimer();
+            applySliderTimer();
          }
     });
 
@@ -42,14 +57,16 @@
     });
     // 初始
     slider.nav(0);
-    // 定时器
-    var silderInterval;
-    var applyTimer = function (){
-        return setInterval(function(){
-            slider.next();       
-        },5000);
-    }
-    silderInterval = applyTimer();
+    
     // 热门课程
- 
+    var hotContainer =  $('.m-rank-wrap')[0];
+    var hotList = new HotList({
+        container: hotContainer,
+    }) 
+    // hotContainer.onmouseover = function(){
+    //     clearInterval(hotInterval);
+    // };
+    // hotContainer.onmouseout = function(){
+    //     hotInterval = applyHotTimer();
+    // };
 })(util);

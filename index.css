@@ -12,7 +12,7 @@ pre,code,kbd,samp{font-family:inherit;}
 q:before,q:after{content:none;}
 textarea{overflow:auto;resize:none;}
 label,summary{cursor:default;}
-a,button{cursor:pointer;}
+li,a,button{cursor:pointer;}
 h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:normal;}
 del,ins,u,s,a,a:hover{text-decoration:none;}
 body,textarea,input,button,select,legend{font:14px/1.25 helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","宋体";color:#333;outline:0;}
@@ -101,8 +101,8 @@ html,body{width:100%;height:100%;}
 .m-intro .u-video video{cursor:pointer;}
 
 .m-rank{width:226px;height:778px;background-color:#fff;margin-top:19px;}
-.m-rank-wrap{display:relative;width:188px;height:682px;margin:20px 0 0 20px;}
-.m-rank .m-list2{display:absolute;top:0px;left:0px;}
+.m-rank-wrap{position:relative;width:188px;height:682px;margin:20px 0 0 20px;}
+.m-rank .m-list2{position:absolute;top:0px;left:0px;}
 .m-list2 li{margin-bottom:19px;}
 .m-list2 li img{width:50px;height:50px;}
 .m-list2 li .u-info{margin-left:62px;}

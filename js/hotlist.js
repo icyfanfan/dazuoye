@@ -16,26 +16,79 @@
 }]
  */
 ;
-(function(_) {
-    var detailTemplate =  '<img src=<%src%> alt="图片加载失败" class="f-fl">' +
-                                '<div class="u-info"><h4><%title%></h4><span><%num%></span></div>';
+(function(_){
+    var detailTemplate =  '<img src="<%smallPhotoUrl%>" alt="图片加载失败" class="f-fl" data-id="<%id%>">' +
+                                                '<div class="u-info"><h4><%name%></h4><span><%learnerCount%></span></div>';
     var template = '<ol class="m-list2"></ol>';
 
     function HotList(opt){
+        _.extend(this, opt);
         this.container = this.container||document.body;
         this._init();
     }
-    _.extend(this, opt);
+    
 
-    _.extend(Slider.prototype, {
-        _init: function() {
+    _.extend(HotList.prototype, {
+        _init: function(){
+            this.movedown = true
+            // 初始化容器html结构
             this.list = _.html2node(template).cloneNode(true);
-            
-            this.container.appendChild(this.list);
+            var that = this;
+            // 获取热门课程信息
+            _.ajax({
+                type:'get',
+                url:'http://study.163.com/webDev/hotcouresByCategory.htm',
+                success:function(r){                    
+                    var _data = JSON.parse(r);
+                    for(var i=0;i<_data.length;i++){
+                        var _item = {
+                            id:_data[i].id,
+                            smallPhotoUrl:_data[i].smallPhotoUrl,
+                            name:_data[i].name,                
+                            learnerCount:_data[i].learnerCount
+                         };
+                         var _li = _.parseTemplate(detailTemplate,_item);
+                         var newLi = document.createElement('li');
+                         newLi.innerHTML = _li;
+                         that.list.appendChild(newLi);
+                    }                                       
+                }
+            });                       
+            // 加入容器中
+            this.container.appendChild(this.list); 
         },
-        next: function() {
-            this._step(1);
+        next: function(){
+            this._move();
+        },
+        _move: function(){
+            var _top = parseInt(this.list.style.top.slice(0,-2));
+            if(isNaN(_top)){
+                _top = 0;
+            }
+            var that = this;
+            if(_top >-690 && this.movedown){
+                var length = 0;
+                this.timer1 = setInterval(function(){
+                    _top = _top - 1;
+                    length = length + 1;
+                    that.list.style.top = _top + 'px';
+                    if (length >= 69){
+                        clearInterval(that.timer1);
+                    }
+                },10);
+            } else {
+                this.movedown = false;
+                this.timer2 = setInterval(function(){
+                    _top = _top + 69;
+                    that.list.style.top = _top + 'px';
+                    if (_top >= 0){
+                        clearInterval(that.timer2);
+                        that.list.style.top = '0px';
+                        that.movedown = true;
+                    }
+                },50);
+            }            
         },
     });
-    
+    window.HotList = HotList;
 })(util);
