@@ -17,12 +17,43 @@ var util = (function() {
             var current = node.className || "";
             node.className = (" " + current + " ").replace(" " + className + " ", " ").trim();
         },
+        // 兼容版添加事件
         addEvent: function(elem, type, listener, useCapture) {
             if (document.addEventListener) {
                 elem.addEventListener(type, listener, useCapture);
             } else {
                 elem.attachEvent('on' + type, listener);
             }
+        },
+        // 兼容版获取dataset对象
+        getDataSet: function(elem){
+            // if (elem.dataset||elem.dataset === {}){
+            if (false){
+                return elem.dataset;
+            } else{
+                // 默认编写时所有属性使用双引号，去掉双引号并以空格或者<分割字符串获取属性数组
+                var _attr = elem.outerHTML.replace(/"/g,'').split(/ |>/);
+                var _dataAttr = [];
+                var _aTemp = '';
+                for(var i =0;i<_attr.length;i++){
+                    var _aTemp = _attr[i];
+                    if(/^data-/.test(_aTemp)){
+                        _dataAttr.push(_aTemp.substring(5));
+                    }
+                }
+                var _tmp = [];
+                var _dataSet = {};
+                for(var i=0;i<_dataAttr.length;i++){
+                    _tmp = _dataAttr[i].split('=');
+                    var _key = _tmp[0].replace(/\-([a-zA-Z])/g, function($1,$2){
+                        return $2.toUpperCase();
+                    });
+                    _dataSet[_key] = _tmp[1];
+                }
+                // var _attr = elem.attributes;
+                // debugger;
+            }
+            return _dataSet;
         },
         // 简单的模板插值<%%>
         parseTemplate: function(tpl, data) {

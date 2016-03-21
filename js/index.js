@@ -12,8 +12,9 @@
         },5000);                
     };
     var applyHotTimer = function(){
-        return setInterval(function(){
-            hotList.next();       
+        hotInterval = setTimeout(function(){
+            hotList.next();
+            applyHotTimer();
         },5000);
     };
     applySliderTimer();
@@ -63,10 +64,7 @@
     var hotList = new HotList({
         container: hotContainer,
     }) 
-    // hotContainer.onmouseover = function(){
-    //     clearInterval(hotInterval);
-    // };
-    // hotContainer.onmouseout = function(){
-    //     hotInterval = applyHotTimer();
-    // };
+
+    // tab页
+    
 })(util);

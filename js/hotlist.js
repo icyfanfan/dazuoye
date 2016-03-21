@@ -30,7 +30,7 @@
 
     _.extend(HotList.prototype, {
         _init: function(){
-            this.movedown = true
+            this.moveup = true
             // 初始化容器html结构
             this.list = _.html2node(template).cloneNode(true);
             var that = this;
@@ -65,30 +65,44 @@
             if(isNaN(_top)){
                 _top = 0;
             }
-            var that = this;
-            if(_top >-690 && this.movedown){
+            // var that = this;
+            if(_top >-690 && this.moveup){
                 var length = 0;
-                this.timer1 = setInterval(function(){
-                    _top = _top - 1;
-                    length = length + 1;
-                    that.list.style.top = _top + 'px';
-                    if (length >= 69){
-                        clearInterval(that.timer1);
-                    }
-                },10);
+                _top = this._stepUp(_top,length);
+                
             } else {
-                this.movedown = false;
-                this.timer2 = setInterval(function(){
-                    _top = _top + 69;
-                    that.list.style.top = _top + 'px';
-                    if (_top >= 0){
-                        clearInterval(that.timer2);
-                        that.list.style.top = '0px';
-                        that.movedown = true;
-                    }
-                },50);
+                this.moveup = false;
+                this._stepDown(_top);
+
             }            
         },
+        _stepUp:function(top,length){   
+            var that = this; 
+            this.timer1 = setTimeout(function(){
+                top = top - 1;
+                length = length + 1;
+                that.list.style.top = top + 'px'; 
+                if (length >= 69){
+                    clearTimeout(this.timer1);                    
+                }  else{
+                    that._stepUp(top,length);
+                }               
+            }, 10);            
+        },
+        _stepDown:function(top){
+            var that = this; 
+            this.timer2 = setTimeout(function(){
+                top = top + 69;
+                that.list.style.top = top + 'px';
+                if (top >= 0){
+                    clearTimeout(that.timer2);
+                    that.list.style.top = 0 + 'px';
+                    that.moveup = true;
+                }else{
+                    that._stepDown(top);
+                }                
+            },50);        
+        }
     });
     window.HotList = HotList;
 })(util);

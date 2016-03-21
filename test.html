@@ -10,35 +10,35 @@
 </head>
 
 <body>
-
+    <div id="testdiv" class="m-sld-wrap" data-age-test="23" data-name="hd"></div>
     <script src='js/util.js'></script>
     <script type="text/javascript">
-    util.ajax({
-        type:'get',
-        url:'http://study.163.com/webDev/hotcouresByCategory.htm',
-        success:function(r){
-            var tpl = '<img src="<%smallPhotoUrl%>" alt="图片加载失败" class="f-fl" data-id="<%id%>">' +
-                                        '<div class="u-info"><h4><%name%></h4><span><%learnerCount%></span></div>';
-            var data = JSON.parse(r);
-            var _data = {
-                id:data[0].id,
-                smallPhotoUrl:data[0].smallPhotoUrl,
-                name:data[0].name,                
-                learnerCount:data[0].learnerCount
-            }
-            debugger;
-            util.parseTemplate(tpl,_data);
-        }
-    });
-    util.ajax({
-        type:'get',
-        url:'http://study.163.com/webDev/couresByCategory.htm',
-        data:{pageNo:1,psize:10,type:10},
-        success:function(r){
+    // util.ajax({
+    //     type:'get',
+    //     url:'http://study.163.com/webDev/hotcouresByCategory.htm',
+    //     success:function(r){
+    //         var tpl = '<img src="<%smallPhotoUrl%>" alt="图片加载失败" class="f-fl" data-id="<%id%>">' +
+    //                                     '<div class="u-info"><h4><%name%></h4><span><%learnerCount%></span></div>';
+    //         var data = JSON.parse(r);
+    //         var _data = {
+    //             id:data[0].id,
+    //             smallPhotoUrl:data[0].smallPhotoUrl,
+    //             name:data[0].name,                
+    //             learnerCount:data[0].learnerCount
+    //         }
+    //         debugger;
+    //         util.parseTemplate(tpl,_data);
+    //     }
+    // });
+    // util.ajax({
+    //     type:'get',
+    //     url:'http://study.163.com/webDev/couresByCategory.htm',
+    //     data:{pageNo:1,psize:10,type:10},
+    //     success:function(r){
             
-        }
-    });
-    
+    //     }
+    // });
+    util.getDataSet(document.getElementById("testdiv"));
     </script>
 </body>
 
