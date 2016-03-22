@@ -22,7 +22,8 @@
     var template = '<ol class="m-list2"></ol>';
 
     function HotList(opt){
-        _.extend(this, opt);
+        var _opt = opt || {};
+        _.extend(this, _opt);
         this.container = this.container||document.body;
         this._init();
     }

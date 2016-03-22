@@ -1,5 +1,5 @@
 (function(_){
-    // 公用方法区   
+    // 公用方法与兼容实现 
     var $ = function( selector ){
         return [].slice.call(document.querySelectorAll(selector))
     }
@@ -26,8 +26,7 @@
         _.addEvent(cursor,'click', function(){
             slider.nav(index);
         });
-    })
-
+    });
     var slider = new Slider({
         //视口容器
         container: sliderContainer,

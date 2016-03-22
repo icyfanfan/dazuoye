@@ -1,5 +1,5 @@
 var util = (function() {
-
+    var _cookies = document.cookie;
     return {
         extend: function(o1, o2) {
             for (var i in o2)
@@ -96,6 +96,7 @@ var util = (function() {
             }
             return _arr.join(split||',')
         },
+        // ajax请求简单封装
         ajax:function(opt){
             var _xhr = new XMLHttpRequest();
             _xhr.onreadystatechange = function(){
@@ -120,6 +121,45 @@ var util = (function() {
         // 判断基本类型和内置对象类型
         type:function(obj){
             return Object.prototype.toString.call(obj).slice(8,-1).toLowerCase();  
+        },
+        // cookie操作
+        // 获取指定名字的cookie
+        getCookie:function(name){
+            var _cookieName = encodeURIComponent(name) + '=',
+                _cookieStart = _cookies.indexOf(cookieName),
+                _cookieValue = null;
+            if(_cookieStart > -1){
+                var _cookieEnd = _cookies.indexOf(';');
+                if (_cookieEnd<=-1){
+                    _cookieEnd = _cookies.length;
+                }
+                _cookieValue = decodeURIComponent(_cookies.substring(_cookieStart+_cookieName.length, _cookieEnd));
+            }
+            return _cookieValue;
+        },
+        // 设置cookie
+        setCookie:function(opt){
+            var _cookieText = encodeURIComponent(opt.name) + '=' +
+                                            encodeURIComponent(opt.value);
+            if(this.type(opt.expires) == 'date'){
+                _cookieText += " ; expires=" + opt.expires.toGMTString();
+            }
+            if (opt.path){
+                cookieText += " ; path=" + opt.path;
+            }
+            if (opt.domain){
+                cookieText += " ; domain=" + opt.domain;
+            }
+            if(opt.secure){
+                cookieText += " ; secure";
+            }
+            document.cookie = cookieText;
+        },
+        // 重置cookie
+        unsetCookie:function(opt){
+            opt.value = "";
+            opt.expires = new Date(0);
+            this.setCookie(opt);
         },
         emitter: {
             // 注册事件
@@ -171,4 +211,5 @@ var util = (function() {
         }
 
     }
-})()
+})();
+
