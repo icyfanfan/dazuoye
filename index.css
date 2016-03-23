@@ -33,15 +33,14 @@ html,body{width:100%;height:100%;}
 .f-shadow{box-shadow:-1px 1px 1px #ecebeb,1px 1px 2px #d4d3d3;}
 .f-oh{overflow:hidden;}
 
-/* status */
-.z-tab-acv{background-color:#39a030;z-index:200;color:#fff;}
+
 
 .g-doc{position:relative;}
 .g-hd{background:#fff;}
 .g-bd{width: auto;}
 
 .g-mn{margin:0 auto;margin-top:84px;width:1207px;}
-.g-mnc{width:960px;}
+.g-mnc{width:980px;}
 .g-sd{width:224px;}
 .g-sd .u-title{position:relative;width:223px;height:55px;border-bottom:1px solid #ecebeb;}
 .g-sd .u-title h3{display:inline-block;position:absolute;top:19px;left:20px;font-size:16px;} 
@@ -87,12 +86,14 @@ html,body{width:100%;height:100%;}
 .m-wrap .m-imgs{display:table;table-layout:fixed;width:1652px;margin:0 auto;}
 .m-wrap .m-imgs img{width:320px;height:220px;}
 
-.m-tab{background-color:#fff;width:401px;height:51px;z-index:210;}
-.m-tab li a{display:inline-block;width:200px;height:50px;line-height:50px;font-size:20px;text-align:center;color:#000;}
+.m-tab{background-color:#fff;width:401px;height:51px;z-index:210;color:#000;}
+.m-tab li a{display:inline-block;width:200px;height:50px;line-height:50px;font-size:20px;text-align:center;}
 
-.m-ct{}
-.m-list1{}
-.m-list1 li{}
+.m-ct{margin-top:28px;width:980px;}
+.m-list1{width:100%;}
+.m-list1>li{margin-right:20px;width:225px;height:228px;box-sizing:border-box;}
+.m-list1>li>img{width:100%;height:124px;}
+
 .m-pager{}
 
 .m-intro{width:226px;height:232px;background-color:#fff;}
@@ -104,7 +105,8 @@ html,body{width:100%;height:100%;}
 .m-rank-wrap{position:relative;width:188px;height:682px;margin:20px 0 0 20px;}
 .m-rank .m-list2{position:absolute;top:0px;left:0px;}
 .m-list2 li{margin-bottom:19px;}
-.m-list2 li img{width:50px;height:50px;}
+/*.m-list2 li img{width:50px;height:50px;}*/
+.m-list2 li img{margin-left:-38px;height:50px;}
 .m-list2 li .u-info{margin-left:62px;}
 .m-list2 li .u-info h4{display:inline-block;width:126px;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 .m-list2 li .u-info span{display:inline-block;margin-top:12px;background:url(images/sprite.png) no-repeat -284px -30px;padding-left:16px;}
@@ -135,3 +137,6 @@ html,body{width:100%;height:100%;}
 .m-modal .modal_body{background-color:#fff; border-top:1px solid #eee; padding:20px; }
 
 /* 登录框 */
+
+/* status */
+.z-tab-acv{background-color:#39a030;z-index:200;color:#fff;}

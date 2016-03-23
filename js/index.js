@@ -1,7 +1,11 @@
 (function(_){
     // 公用方法与兼容实现 
     var $ = function( selector ){
-        return [].slice.call(document.querySelectorAll(selector))
+        if(selector.indexOf('#') != -1){
+            return document.querySelector(selector);
+        }else{
+            return [].slice.call(document.querySelectorAll(selector));            
+        }
     }
     // 定时器
     var silderInterval,hotInterval;
