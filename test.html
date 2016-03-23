@@ -5,13 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>测试代码</title>
     <style type="text/css">
-}
+
     </style>
+    <link rel="stylesheet" href="index.css" />
 </head>
 
-<body>
+<body style="width:100%;height:800px;">
     <div id="testdiv" class="m-sld-wrap" data-age-test="23" data-name="hd"></div>
-    <script src='js/util.js'></script>
+    <script src='js/base/util.js'></script>
+    <script src='js/components/modal.js'></script>
+    <script src='js/components/loginmodal.js'></script>
+
     <script type="text/javascript">
     // util.ajax({
     //     type:'get',
@@ -38,7 +42,15 @@
             
     //     }
     // });
-    util.getDataSet(document.getElementById("testdiv"));
+    // util.getDataSet(document.getElementById("testdiv"));
+    var test = new LoginModal();
+    document.body.onclick= function(){
+        test.show();
+    };
+    util.setCookie({name:'test',value:'123'});
+    var c = util.getCookie({name:'test'});
+    debugger;
+
     </script>
 </body>
 

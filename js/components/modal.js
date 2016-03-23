@@ -6,7 +6,7 @@
     '<div class="m-modal">\
       <div class="modal_align"></div>\
       <div class="modal_wrap animated">\
-        <div class="close">X</div>\
+        <div class="close">x</div>\
         <div class="modal_body">内容</div>\
       </div>\
     </div>';
@@ -22,23 +22,25 @@
         // 将传入的opt复制到组件实例上
         _.extend(this, _opt);
 
-        this._init();
+        this._initEvent();
     }
 
     _.extend(Modal.prototype, _.emitter);
 
     _.extend(Modal.prototype,{
         _layout: _.html2node(template),
-        _init:function(){
-            this.container.querySelector('.confirm').addEventListener(
-              'click', this._onConfirm.bind(this)
-            );
-            this.container.querySelector('.cancel').addEventListener(
-              'click', this._onCancel.bind(this)
-            );
-            this.container.querySelector('.close').addEventListener(
-              'click', this._onClose.bind(this)
-            )
+        _initEvent:function(){
+            var _confirm = this.container.querySelector('.confirm');
+            var _cancel = this.container.querySelector('.cancel');
+            var _close = this.container.querySelector('.close');
+            _.addEvent(_close, 'click', this._onClose.bind(this));
+            if(!!_confirm){
+                _.addEvent(_confirm, 'click', this._onConfirm.bind(this));
+            }
+            if(!!_cancel){
+                _.addEvent(_cancel, 'click', this._onCancel.bind(this));
+            }
+
         },
         setContent:function(content){
             if(!content) return;
@@ -58,18 +60,21 @@
         },
         hide:function(){
             document.body.removeChild(this.container);
+            // TODO 事件解绑是否需要？
+            
         },
-        _onConfirm:function(){
-            this.emit('confirm')
+        _onConfirm:function(e){
+            this.emit('confirm');
             this.hide();
         },
-        _onCancel:function(){
-            this.emit('cancel')
+        _onCancel:function(e){
+            this.emit('cancel');
             this.hide();
         },
-        _onClose:function(){
-            this.emit('cancel')
-            this.hide();            
+        _onClose:function(e){
+            this.emit('close');
+            this.hide();          
+            e.stopPropagation();  
         },
     });
     window.Modal = Modal;

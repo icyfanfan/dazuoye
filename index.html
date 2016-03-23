@@ -79,15 +79,21 @@
                 <!-- 左侧主要内容 -->
                 <div class="g-mnc f-fl">
                     <!-- tab -->
-                    <ul class="m-tab f-shadow">
-                    <li class="f-fl"><a href="javascript:void(0);" >产品设计</a></li>
-                    <li class="f-fl"><a href="javascript:void(0);" >编程语言</a></li>
+                    <ul id="tabControl" class="m-tab f-shadow">
+                        <li class="f-fl"><a href="#tabDesign" >产品设计</a></li>
+                        <li class="f-fl"><a href="#tabProgram" >编程语言</a></li>
                     </ul>
                     <!-- tab内容页 -->
-                    <div class="m-ct">
-                        <ul class="m-list1"></ul>
-                        <div class="m-pager"></div>
-                    </div>
+                    <div id="tabContent" class="m-ct">
+                        <div id="tabDesign" class="f-dn">
+                            <ul class="m-list1"></ul>
+                            <div class="m-pager">1</div>
+                        </div>
+                        <div id="tabProgram" class="f-dn">
+                            <ul class="m-list1"></ul>
+                            <div class="m-pager">2</div>
+                        </div>
+                    </div>                    
                 </div>
                 <!-- 右侧边栏 -->
                 <div class="g-sd f-fl">
@@ -95,10 +101,8 @@
                     <div class="m-intro f-shadow">
                         <div class="u-title"><h3>机构介绍</h3></div>
                         <div class="u-video">
-                            <p>观看下面的视频来了解吧：</p>
-                            
-                                <img width="170" height="110" src="images/video.jpg" alt="">
-                                
+                            <p>观看下面的视频来了解吧：</p>                            
+                            <img width="170" height="110" src="images/video.jpg" alt="">          
                         </div>
                     </div>
                     <!-- 最热排行 -->
@@ -138,6 +142,8 @@
     <script src='js/base/md5.js'></script>
     <script src='js/components/slide.js'></script>
     <script src='js/components/hotlist.js'></script>
+    <script src='js/components/modal.js'></script>
+    <script src='js/components/loginmodal.js'></script>
     <script src='js/index.js'></script>
 
 </body>

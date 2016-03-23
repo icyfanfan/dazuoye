@@ -1,13 +1,13 @@
 var util = (function() {
     var _cookies = document.cookie;
     return {
-        extend: function(o1, o2) {
+        extend: function(o1, o2){
             for (var i in o2)
                 if (o1[i] == undefined) {
                     o1[i] = o2[i]
                 }
         },
-        addClass: function(node, className) {
+        addClass: function(node, className){
             var current = node.className || "";
             if ((" " + current + " ").indexOf(" " + className + " ") === -1) {
                 node.className = current ? (current + " " + className) : className;
@@ -18,11 +18,19 @@ var util = (function() {
             node.className = (" " + current + " ").replace(" " + className + " ", " ").trim();
         },
         // 兼容版添加事件
-        addEvent: function(elem, type, listener, useCapture) {
+        addEvent: function(elem, type, listener, useCapture){
             if (document.addEventListener) {
                 elem.addEventListener(type, listener, useCapture);
             } else {
                 elem.attachEvent('on' + type, listener);
+            }
+        },
+        // 兼容版删除事件
+        delEvent: function(elem, type, listener, useCapture){
+            if(document.removeEventListener) {
+                elem.removeEventListener(type, listener, useCapture);
+            } else {
+                elem.detachEvent('on' + type, listener);
             }
         },
         // 兼容版获取dataset对象
@@ -126,7 +134,7 @@ var util = (function() {
         // 获取指定名字的cookie
         getCookie:function(name){
             var _cookieName = encodeURIComponent(name) + '=',
-                _cookieStart = _cookies.indexOf(cookieName),
+                _cookieStart = _cookies.indexOf(_cookieName),
                 _cookieValue = null;
             if(_cookieStart > -1){
                 var _cookieEnd = _cookies.indexOf(';');
@@ -145,15 +153,15 @@ var util = (function() {
                 _cookieText += " ; expires=" + opt.expires.toGMTString();
             }
             if (opt.path){
-                cookieText += " ; path=" + opt.path;
+                _cookieText += " ; path=" + opt.path;
             }
             if (opt.domain){
-                cookieText += " ; domain=" + opt.domain;
+                _cookieText += " ; domain=" + opt.domain;
             }
             if(opt.secure){
-                cookieText += " ; secure";
+                _cookieText += " ; secure";
             }
-            document.cookie = cookieText;
+            document.cookie = _cookieText;
         },
         // 重置cookie
         unsetCookie:function(opt){

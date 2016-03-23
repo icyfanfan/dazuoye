@@ -43,7 +43,7 @@
             applySliderTimer();
          }
     });
-
+    // 接收事件
     slider.on('nav', function( ev ){
         var pageIndex = ev.pageIndex;
 
@@ -61,9 +61,27 @@
     // 热门课程
     var hotContainer =  $('.m-rank-wrap')[0];
     var hotList = new HotList({
-        container: hotContainer,
+        container:hotContainer,
     }) 
 
     // tab页
+    var tabControl = $('#tabControl');
+    var tabContent = $('#tabContent');
+    var courseTab = new Tab({
+        control:tabControl,
+        content:tabContent,
+        default:0,
+    });
+    // 登录框
     
+    // 弹出视频
+    var videoModal = new Modal();
+    var videoTrigger = $('.u-video img')[0];
+    videoTrigger.onclick = function(e){
+        e.stopPropagation();
+        var ctn = '<video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" width="890" height="568" controls="controls"></video>';
+        videoModal.show(ctn);                 
+        // TODO 弹出框control的样式
+    }
+    // debugger;
 })(util);

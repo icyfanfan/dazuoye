@@ -33,12 +33,12 @@ html,body{width:100%;height:100%;}
 .f-shadow{box-shadow:-1px 1px 1px #ecebeb,1px 1px 2px #d4d3d3;}
 .f-oh{overflow:hidden;}
 
-/*status*/
+/* status */
 .z-tab-acv{background-color:#39a030;z-index:200;color:#fff;}
 
 .g-doc{position:relative;}
 .g-hd{background:#fff;}
-.g-bd{}
+.g-bd{width: auto;}
 
 .g-mn{margin:0 auto;margin-top:84px;width:1207px;}
 .g-mnc{width:960px;}
@@ -98,7 +98,7 @@ html,body{width:100%;height:100%;}
 .m-intro{width:226px;height:232px;background-color:#fff;}
 .m-intro .u-video{margin:20px auto;width:170px;}
 .m-intro .u-video p{margin-bottom:9px;}
-.m-intro .u-video video{cursor:pointer;}
+.m-intro .u-video img{cursor:pointer;}
 
 .m-rank{width:226px;height:778px;background-color:#fff;margin-top:19px;}
 .m-rank-wrap{position:relative;width:188px;height:682px;margin:20px 0 0 20px;}
@@ -126,10 +126,12 @@ html,body{width:100%;height:100%;}
 .m-foot .m-about .u-wb{display:inline-block;width:22px;height:18px;background:url(images/sprite.png) no-repeat -277px -55px;vertical-align:middle;}
 
 /* for modal */
-.m-modal{height:100%; width:100%; position:fixed; left:0; top:0; background-color:rgba(255,255,255,0.5); text-align:center; color:#aaa; }
+.m-modal{height:100%; width:100%; position:fixed; left:0; top:0; background-color:rgba(255,255,255,0.5); text-align:center; color:#aaa; z-index:11;}
 .m-modal .modal_align,.m-modal .modal_wrap{display:inline-block; vertical-align:baseline; zoom:1; *display:inline; *vertical-align:auto; vertical-align:middle; }
 .m-modal .modal_align{height:100%; width:1px; line-height:100%; } 
-.m-modal .modal_wrap{position:relative; text-align:left; width:400px; -webkit-box-shadow:2px 2px 5px rgba(0,0,0,0.4); box-shadow:2px 2px 5px rgba(0,0,0,0.4); border-radius:3px; overflow:hidden; }
+.m-modal .modal_wrap{position:relative; text-align:left; -webkit-box-shadow:2px 2px 5px rgba(0,0,0,0.4); box-shadow:2px 2px 5px rgba(0,0,0,0.4); border-radius:3px; overflow:hidden; }
 .m-modal .close{position:absolute; right:8px; top:8px; font-size:18px; color:#ddd; cursor:pointer; }
 .m-modal .close:hover{color:#999;}
 .m-modal .modal_body{background-color:#fff; border-top:1px solid #eee; padding:20px; }
+
+/* 登录框 */
