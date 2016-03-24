@@ -1,16 +1,16 @@
 ;(function(_){
-    var lgTpl = '<div class="title">登录网易通行证</div>' +
+    var lgTpl = '<div class="m-login"><div class="u-title">登录网易云课堂</div>' +
         '<form action="/login" method="get">' +
-            '<div class="inputWrapper">' +
-                '<label for="usrName">用户名：</label><input type="text" id="usrName" class="textInput">' +
+            '<div class="u-input">' +
+                '<input type="text" id="usrName" placeholder="账户" required>' +
             '</div>' +
-            '<div class="inputWrapper">' +
-                '<label for="usrPwd">密码：</label><input type="password" id="usrPwd" class="textInput">' +
+            '<div class="u-input">' +
+                '<input type="password" id="usrPwd" placeholder="密码" required>' +
             '</div>' +
-            '<div class="btnWrapper">' +
+            '<div class="u-btn">' +
                 '<button type="submit" class="btn">登录</button>' +
             '</div>' +
-        '</form></div>;';
+        '</form></div>';
 
     function LoginModal(opt){
         var _opt = opt || {};
@@ -38,6 +38,7 @@
             // 验证并提交表单
             if(!!this._validate){
                 this.hide();
+                this.emit('formSubmit');
             }
         },
     });

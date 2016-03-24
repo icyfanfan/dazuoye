@@ -6,7 +6,7 @@
     '<div class="m-modal">\
       <div class="modal_align"></div>\
       <div class="modal_wrap animated">\
-        <div class="close">x</div>\
+        <div class="close">×</div>\
         <div class="modal_body">内容</div>\
       </div>\
     </div>';

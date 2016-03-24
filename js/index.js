@@ -48,7 +48,7 @@
          }
     });
     // 接收事件
-    slider.on('nav', function( ev ){
+    slider.on('nav', function(ev){
         var pageIndex = ev.pageIndex;
 
         silderCursors.forEach(function(cursor, index){
@@ -77,6 +77,14 @@
         default:0,
     });
     // 登录框
+    var btnFavor = $('#btnFavor');
+    var loginModal = new LoginModal();
+    _.addEvent(btnFavor,'click',function(e){
+        loginModal.show();
+    });
+    loginModal.on('formSubmit', function(ev){
+        btnFavor.innerText = "";
+    })
     
     // 弹出视频
     var videoModal = new Modal();
