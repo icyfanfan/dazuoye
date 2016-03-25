@@ -18,14 +18,15 @@
 ;
 (function(_){
     var detailTemplate =  '<img src="<%middlePhotoUrl%>" alt="图片加载失败" class="" data-id="<%id%>">' +
-                                                '<div class="u-info"><h4><%name%></h4><span><%learnerCount%></span></div>';
-    
+                        '<div class="u-info"><h4><%name%></h4><span><%provider%></span><span><%learnerCount%></span><span><%price%></span></div>';
+    var template = '<ul class="m-list1"></ul><div class="m-pager">1</div>';
 
     function CourseList(opt){
         var _opt = opt || {};
         _.extend(this, _opt);
-        if()
-        this._init();
+        if(this.container){
+            this._init();
+        }        
     }
     
 
@@ -34,20 +35,27 @@
             
             // 初始化容器html结构
             this.list = _.html2node(template).cloneNode(true);
+            // this.list = this.content.getElementsByTagName('ul')[0];
+            // debugger;
             var that = this;
-            // 获取热门课程信息
+            // 获取课程信息
             _.ajax({
                 type:'get',
-                url:'http://study.163.com /webDev/couresByCategory.htm',
-                data:{pageNo:1,psize:20,type:'10'}
+                url:'http://study.163.com/webDev/couresByCategory.htm',
+                data:{pageNo:1,psize:20,type:this.type},
                 success:function(r){                    
-                    var _data = JSON.parse(r);
+                    var _total = JSON.parse(r);
+                    var _data = _total.list;
+                    // debugger;
+                    // console.log(_data);
                     for(var i=0;i<_data.length;i++){
                         var _item = {
                             id:_data[i].id,
-                            smallPhotoUrl:_data[i].smallPhotoUrl,
-                            name:_data[i].name,                
-                            learnerCount:_data[i].learnerCount
+                            middlePhotoUrl:_data[i].middlePhotoUrl,
+                            name:_data[i].name,             
+                            provider:_data[i].provider,   
+                            learnerCount:_data[i].learnerCount,
+                            price:_data[i].price,
                          };
                          var _li = _.parseTemplate(detailTemplate,_item);
                          var newLi = document.createElement('li');

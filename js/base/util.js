@@ -65,9 +65,11 @@ var util = (function() {
         },
         // 简单的模板插值<%%>
         parseTemplate: function(tpl, data) {
-            var re = /<%([^%>]+)?%>/g;
-            while(match = re.exec(tpl)) {
-                tpl = tpl.replace(match[0], data[match[1]])
+            var re = /<%([^%>]+)?%>/;
+            var match = re.exec(tpl);
+            while(!!match) {
+                tpl = tpl.replace(match[0], data[match[1]]);
+                match = re.exec(tpl);
             }
             return tpl;
         },

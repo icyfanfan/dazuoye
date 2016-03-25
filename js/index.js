@@ -36,16 +36,16 @@
         container: sliderContainer,
         // 图片列表
         images: [
-        {'src':'./images/banner1.jpg','href':'http://open.163.com/'}, 
-        {'src':'./images/banner2.jpg','href':'http://study.163.com/'}, 
-        {'src':'./images/banner3.jpg','href':'http://www.icourse163.org/'}        
+        {src:'./images/banner1.jpg',href:'http://open.163.com/'}, 
+        {src:'./images/banner2.jpg',href:'http://study.163.com/'}, 
+        {src:'./images/banner3.jpg',href:'http://www.icourse163.org/'}        
         ],
         onMouseOver: function(){
             clearTimeout(silderInterval);
-         },
-         onMouseOut: function(){
-            applySliderTimer();
-         }
+        },
+        onMouseOut: function(){
+        applySliderTimer();
+        }
     });
     // 接收事件
     slider.on('nav', function(ev){
@@ -60,15 +60,13 @@
         });
     });
     // 初始
-    slider.nav(0);
-    
+    slider.nav(0);    
     // 热门课程
     var hotContainer =  $('.m-rank-wrap')[0];
     var hotList = new HotList({
         container:hotContainer,
-    }) 
-
-    // tab页
+    });
+    // tab按钮
     var tabControl = $('#tabControl');
     var tabContent = $('#tabContent');
     var courseTab = new Tab({
@@ -76,16 +74,32 @@
         content:tabContent,
         default:0,
     });
+    // tab内容页
+    // 产品课程页
+    var designContent = $('#tabDesign');
+    var designCourse = new CourseList({
+        container:designContent,
+        type:'10',
+
+    });
     // 登录框
     var btnFavor = $('#btnFavor');
+    var btnFavored = $('#btnFavored');
     var loginModal = new LoginModal();
     _.addEvent(btnFavor,'click',function(e){
         loginModal.show();
     });
     loginModal.on('formSubmit', function(ev){
-        btnFavor.innerText = "";
-    })
-    
+        _.addClass(btnFavor,'f-dn');
+        _.delClass(btnFavored,'f-dn');
+    });
+    var btnCancel = btnFavored.getElementsByTagName('a')[0];
+    _.addEvent(btnCancel,'click',function(e){
+        // 清除掉登陆的cookie TODO
+
+        _.addClass(btnFavored,'f-dn');
+        _.delClass(btnFavor,'f-dn');
+    });
     // 弹出视频
     var videoModal = new Modal();
     var videoTrigger = $('.u-video img')[0];
