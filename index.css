@@ -51,8 +51,9 @@ html,body{width:100%;height:100%;}
 .m-top .m-logo h1{width:155px;height:26px;padding-left: 83px;background:url(images/sprite.png)  no-repeat -205px 4px;font-size: 22px;line-height:26px;}
 .m-top .m-favor{margin-left:31px; height:26px; line-height:26px; } 
 .m-favor .u-btn1{background:url(images/sprite.png) no-repeat -142px 0px; width:56px; height:21px; display:inline-block; font-size:12px; text-align:center; line-height:21px; color: #fff;cursor: pointer; }
-.m-favor .u-btn2{background:url(images/sprite.png) no-repeat -142px 0px; width:106px; height:21px; display:inline-block; font-size:12px; text-align:center; line-height:21px; color: #fff;cursor: pointer; }
+.m-favor .u-btn2{background:url(images/sprite.png) no-repeat -60px -28px; width:106px; height:21px; display:inline-block; font-size:12px; text-align:center; line-height:21px; color: #000;cursor: pointer; }
 .m-favor .u-btn1:hover{background:url(images/sprite.png) no-repeat 0px -29px; }
+.m-favor .u-btn2:hover{background:url(images/sprite.png) no-repeat -170px -28px; }
 .m-top .m-favor .u-fan{margin-left:14px; }
 .m-top .m-nav{width:452px;}
 .m-top .m-nav>a{margin-left:54px;height:22px;line-height:22px;font-size:16px;}
