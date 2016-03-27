@@ -33,10 +33,15 @@ var util = (function() {
                 elem.detachEvent('on' + type, listener);
             }
         },
+        setDataSet: function(elem,datas){
+            for(key in datas){
+                elem.setAttribute('data-'+key,datas[key]);
+            }
+        },
         // 兼容版获取dataset对象
         getDataSet: function(elem){
             // if (elem.dataset||elem.dataset === {}){
-            if (false){
+            if (elem.dataset||elem.dataset==={}){
                 return elem.dataset;
             } else{
                 // 默认编写时所有属性使用双引号，去掉双引号并以空格或者<分割字符串获取属性数组

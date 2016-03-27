@@ -34,9 +34,11 @@
             return 1;
         },
         _onSubmit:function(e){
+            e = e||window.event;
             e.preventDefault();
             // 验证并提交表单
             if(!!this._validate){
+                
                 this.hide();
                 this.emit('formSubmit');
             }

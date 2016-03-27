@@ -4,7 +4,8 @@
         if(selector.indexOf('#') != -1){
             return document.querySelector(selector);
         }else{
-            return [].slice.call(document.querySelectorAll(selector));            
+            // return [].slice.call(document.querySelectorAll(selector));            
+            return document.querySelectorAll(selector);            
         }
     }
     // 定时器
@@ -23,14 +24,16 @@
     };
     applySliderTimer();
     hotInterval = applyHotTimer();
-    /* silder相关初始化与事件绑定注册 */
+    // silder相关初始化与事件绑定注册 
     var sliderContainer =  $('.m-sld-wrap')[0];
-    var silderCursors = $('.u-pointer i');
-    silderCursors.forEach(function(cursor, index){
+    var sliderCursors = $('.u-pointer i');
+    for(var i=0;i<sliderCursors.length;i++){
+        var cursor = sliderCursors[i];
         _.addEvent(cursor,'click', function(){
-            slider.nav(index);
+            slider.nav(i);
         });
-    });
+    }
+   
     var slider = new Slider({
         //视口容器
         container: sliderContainer,
@@ -50,14 +53,14 @@
     // 接收事件
     slider.on('nav', function(ev){
         var pageIndex = ev.pageIndex;
-
-        silderCursors.forEach(function(cursor, index){
-            if(index === pageIndex ){
+        for(var i=0;i<sliderCursors.length;i++){
+            var cursor = sliderCursors[i];
+            if(i === pageIndex ){
                 cursor.className = 'z-active';
             }else{
                 cursor.className = '';
             }
-        });
+        }
     });
     // 初始
     slider.nav(0);    
@@ -80,34 +83,48 @@
     var designCourse = new CourseList({
         container:designContent,
         type:'10',
-
     });
+    // 编程语言页
+    var programContent = $('#tabProgram');
+    var programCourse = new CourseList({
+        container:programContent,
+        type:'20',
+    });
+
     // 登录框
     var btnFavor = $('#btnFavor');
     var btnFavored = $('#btnFavored');
     var loginModal = new LoginModal();
-    _.addEvent(btnFavor,'click',function(e){
+    _.addEvent(btnFavor,'click',function(){
         loginModal.show();
     });
-    loginModal.on('formSubmit', function(ev){
+    loginModal.on('formSubmit', function(){
         _.addClass(btnFavor,'f-dn');
         _.delClass(btnFavored,'f-dn');
     });
     var btnCancel = btnFavored.getElementsByTagName('a')[0];
-    _.addEvent(btnCancel,'click',function(e){
+    _.addEvent(btnCancel,'click',function(){
         // 清除掉登陆的cookie TODO
 
         _.addClass(btnFavored,'f-dn');
         _.delClass(btnFavor,'f-dn');
     });
+    // 顶部提示框
+    var btnNoShow = $('.m-note .u-noshow')[0];
+    _.addEvent(btnNoShow,'click',function(){
+        var note = $('.m-note-wrap')[0];
+        _.addClass(note,'f-dn');
+    })
     // 弹出视频
     var videoModal = new Modal();
     var videoTrigger = $('.u-video img')[0];
     videoTrigger.onclick = function(e){
+        e = e||window.event;
         e.stopPropagation();
-        var ctn = '<video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" width="890" height="568" controls="controls"></video>';
+        var ctn = '<div class="m-videoWrap"><p class="f-fbold">请观看下面的视频：</p><video poster="./images/poster.jpg"'+
+                'src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4"'+
+                'width="890" height="538" controls="controls"></video></div>';
         videoModal.show(ctn);                 
-        // TODO 弹出框control的样式
     }
     // debugger;
 })(util);

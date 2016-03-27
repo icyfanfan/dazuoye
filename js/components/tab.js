@@ -10,8 +10,8 @@
     _.extend(Tab.prototype,{
         _init:function(){
             this._initEvent();
-            if(this.default){
-
+            if(_.type(this.default)!='undefined'){
+                this.control.getElementsByTagName('a')[this.default].click();
             }
         },
         _initEvent:function(){
@@ -45,7 +45,7 @@
             };
             // 显示目标内容页
             _.delClass(this.content.querySelector(target),'f-dn');
-        }
+        },
     });
     window.Tab = Tab;
 })(util);
