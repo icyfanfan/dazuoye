@@ -36,7 +36,7 @@
 
         // 组件节点
         this.slider = this._layout.cloneNode(true);
-        this.slides = [].slice.call(this.slider.querySelectorAll('.u-slider'));
+        this.slides = this.slider.querySelectorAll('.u-slider');
 
         this.pageNum = this.images.length;
 
@@ -70,7 +70,7 @@
 
         },
         // 下一页
-        next: function() {
+        nxt: function() {
             this._step(1);
         },
         // 上一页
@@ -113,7 +113,10 @@
 
 
             // 当前slide 添加 'z-active'的className
-            slides.forEach(function(node) { _.delClass(node, 'z-active') })
+            for(var i=0;i<slides.length;i++){
+                _.delClass(slides[i], 'z-active');
+            }
+            
             _.addClass(slides[slideIndex], 'z-active');
 
             this._onNav(this.pageIndex, this.slideIndex);
@@ -122,7 +125,7 @@
         },
         // 标准化下标
         _normIndex: function(index, len) {
-            return (len + index) % len
+            return (len + index) % len;
         },
 
         // 跳转时完成的逻辑, 包括设置图片url、点击函数等

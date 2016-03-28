@@ -13,7 +13,7 @@
         '</form></div>';
 
     function LoginModal(opt){
-        var _opt = opt || {};
+        var _opt = opt || [];
         Modal.apply(this,_opt);
 
         // 设置登录框内容
@@ -34,14 +34,14 @@
             return 1;
         },
         _onSubmit:function(e){
-            e = e||window.event;
-            e.preventDefault();
+            
             // 验证并提交表单
             if(!!this._validate){
                 
                 this.hide();
                 this.emit('formSubmit');
             }
+            return false;
         },
     });
     window.LoginModal = LoginModal;

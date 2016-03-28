@@ -18,9 +18,9 @@
     var detailTpl =  '<img src="<%middlePhotoUrl%>" alt="图片加载失败">'+                        
                         '<div class="u-info"><h4><%name%></h4><span class="f-fc1"><%provider%></span><span class="u-learner f-fc1">' +
                         '<%learnerCount%></span><span class="f-fc2 f-fbold">￥<%price%></span></div>';
-    var hoverTpl = '<div class="m-detail"><img src="<%middlephotourl%>" alt="图片加载失败" class="f-fl"><div class="u-info f-fl">'+
-                    '<h3><%name%></h3><span class="u-learner f-fc1"><%learnercount%>人在学</span><span class="f-fc1">发布者：<%provider%></span>'+
-                    '<span class="f-fc1">分类：<%categoryname%></span></div></div><div class="u-des"><span><%description%></span></div>';
+    var hoverTpl = '<div class="m-detail"><img src="<%middlePhotoUrl%>" alt="图片加载失败" class="f-fl"><div class="u-info f-fl">'+
+                    '<h3><%name%></h3><span class="u-learner f-fc1"><%learnerCount%>人在学</span><span class="f-fc1">发布者：<%provider%></span>'+
+                    '<span class="f-fc1">分类：<%categoryName%></span></div></div><div class="u-des"><span><%description%></span></div>';
     var listTpl = '<ul class="m-list1"></ul>';
     var pagerTpl = '<div class="m-pagerwrap f-cb"><ul class="m-pager"><li><span class="u-pre" data-tar="pre">'+
                     '</span></li><li><span class="u-next" data-tar="next"></span></li></ul></div>';
@@ -63,8 +63,8 @@
                      _.addClass(newLi,'f-shadow');
                      this.list.appendChild(newLi);
                      // 事件绑定
-                     _.addEvent(newLi,'mouseover',this._showHover.bind(this));
-                     _.addEvent(newLi,'mouseout',this._hideHover.bind(this));                     
+                     _.addEvent(newLi,'mouseover',this._showHover.bind(newLi));
+                     _.addEvent(newLi,'mouseout',this._hideHover.bind(newLi));                     
                 }
                 
                 this.pagerUl = this.pager.lastChild;
@@ -97,8 +97,7 @@
             this._move();
         },
         _onPage: function(e){
-            e.preventDefault();
-            e.stopPropagation();
+            
             var _tar = e.target;
             var _dataTar = _.getDataSet(_tar).tar;
             if(!isNaN(parseInt(_dataTar))){
@@ -106,7 +105,7 @@
             }else{
                 if(_dataTar=='next'){
                     if(this.lastSelected>=this.totalPage){
-                        return;
+                        return false;
                     }
                     // next按钮生效
                     _dataTar = this.lastSelected+1;
@@ -127,7 +126,7 @@
                 }
                 if(_dataTar=='pre'){
                     if(this.lastSelected<=1){
-                        return;
+                        return false;
                     }
                     _dataTar = this.lastSelected-1;
                     // 是否需要更新pagerList
@@ -148,12 +147,12 @@
             }
             this._changeSelected(_dataTar);
             this._getData({pageNo:_dataTar,success:this._refreshNode.bind(this)});  
-            // if(_tar.)
+            return false;
         },
         _changeSelected: function(tar){
             // debugger;
             // 设置选中状态与清除上一个选项的选中状态
-            var _numbers = this.pagerUl.getElementsByClassName('u-number');
+            var _numbers = _.getElementsByClassName(this.pagerUl, 'u-number');
             // debugger;
             if(_.type(this.lastSelected)!='undefined'&&_numbers[this.lastSelected-this.firstIndex]!=undefined){
                 _.delClass(_numbers[this.lastSelected-this.firstIndex],'z-selected');
@@ -193,13 +192,12 @@
             }); 
         },
         _showHover: function(e){
-            var _e = e||window.event;
-            _e.preventDefault();
-            _e.stopPropagation();
-            var _li = _e.currentTarget;
-            var _div = _li.getElementsByClassName('m-hover')[0];
+            // 绑定的this节点内任意元素触发事件均显示Hover的Modal，并且阻止事件继续冒泡
+            var _li = this;
+ 
+            var _div = _.getElementsByClassName(_li, 'm-hover')[0];
             if(_div){
-                return;
+                return false;
             }
             var _modal = _.parseTemplate(hoverTpl,_.getDataSet(_li)); 
             var _div = document.createElement('div');
@@ -207,20 +205,18 @@
             _.addClass(_div,'f-shadow-big');
             _div.innerHTML = _modal;
             _li.appendChild(_div);
-            // debugger;
+            return false;
+         
         },
         _hideHover: function(e){
-            var _e = e||window.event;
-            _e.preventDefault();
-            _e.stopPropagation();
-            var _li = e.currentTarget;
-            // var _obj = e.relateTarget||e.toElement;
-            if(_li.contains(_e.relateTarget)||_li.contains(_e.toElement)){
-                return;
+            // 进入的元素如果在this节点内则忽略事件并阻止事件继续冒泡
+            var _li = this;
+            if(_li.contains(e.relatedTarget)){
+                return false;
             }
-            var _div = _li.getElementsByClassName('m-hover')[0];
+            var _div = _.getElementsByClassName(_li, 'm-hover')[0];
             _li.removeChild(_div);
-
+            return false;
         },
     });
     window.CourseList = CourseList;

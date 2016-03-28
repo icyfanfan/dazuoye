@@ -12,13 +12,13 @@
     var silderInterval,hotInterval;
     var applySliderTimer = function(){        
         silderInterval = setTimeout(function(){         
-            slider.next();   
+            slider.nxt();   
             applySliderTimer();            
         },5000);                
     };
     var applyHotTimer = function(){
         hotInterval = setTimeout(function(){
-            hotList.next();
+            hotList.nxt();
             applyHotTimer();
         },5000);
     };
@@ -75,7 +75,7 @@
     var courseTab = new Tab({
         control:tabControl,
         content:tabContent,
-        default:0,
+        dft:0,
     });
     // tab内容页
     // 产品课程页
@@ -119,8 +119,6 @@
     var videoModal = new Modal();
     var videoTrigger = $('.u-video img')[0];
     videoTrigger.onclick = function(e){
-        e = e||window.event;
-        e.stopPropagation();
         var ctn = '<div class="m-videoWrap"><p class="f-fbold">请观看下面的视频：</p><video poster="./images/poster.jpg"'+
                 'src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4"'+
                 'width="890" height="538" controls="controls"></video></div>';

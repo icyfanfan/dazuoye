@@ -66,15 +66,17 @@
         _onConfirm:function(e){
             this.emit('confirm');
             this.hide();
+            return false; 
         },
         _onCancel:function(e){
             this.emit('cancel');
             this.hide();
+            return false; 
         },
         _onClose:function(e){
             this.emit('close');
             this.hide();          
-            e.stopPropagation();  
+            return false;  
         },
     });
     window.Modal = Modal;

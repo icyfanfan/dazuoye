@@ -10,8 +10,8 @@
     _.extend(Tab.prototype,{
         _init:function(){
             this._initEvent();
-            if(_.type(this.default)!='undefined'){
-                this.control.getElementsByTagName('a')[this.default].click();
+            if(_.type(this.dft)!='undefined'){
+                this.control.getElementsByTagName('a')[this.dft].click();
             }
         },
         _initEvent:function(){
@@ -23,16 +23,17 @@
             }
         },
         _onTab:function(e){
-            e = e||window.event;
-            e.preventDefault();
+            // debugger;           
+            var tar = e.target;
+           
             var _controls = this.control.getElementsByTagName('a');
             for(var i=0;i<_controls.length;i++){
                 _.delClass(_controls[i],'z-tab-acv');
             }
-            _.addClass(e.currentTarget,'z-tab-acv');
-            var _target = e.currentTarget.getAttribute('href');
+            _.addClass(tar,'z-tab-acv');
+            var _target = tar.getAttribute('href');
             this._showContent(_target);
-            e.stopPropagation();
+            return false;
         },
         _showContent:function(target){
             var _ctnList = this.content.getElementsByTagName('div');

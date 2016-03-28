@@ -58,7 +58,7 @@
             // 加入容器中
             this.container.appendChild(this.list); 
         },
-        next: function(){
+        nxt: function(){
             this._move();
         },
         _move: function(){
