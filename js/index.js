@@ -47,7 +47,7 @@
             clearTimeout(silderInterval);
         },
         onMouseOut: function(){
-        applySliderTimer();
+            applySliderTimer();
         }
     });
     // 接收事件
