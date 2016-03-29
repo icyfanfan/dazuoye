@@ -9,11 +9,11 @@
         }
     }
     // 定时器
-    var silderInterval,hotInterval;
-    var applySliderTimer = function(){        
-        silderInterval = setTimeout(function(){         
-            slider.nxt();   
-            applySliderTimer();            
+    var bannerInterval,hotInterval;
+    var applyBannerTimer = function(){        
+        bannerInterval = setTimeout(function(){         
+            banner.nxt();   
+            applyBannerTimer();            
         },5000);                
     };
     var applyHotTimer = function(){
@@ -22,21 +22,26 @@
             applyHotTimer();
         },5000);
     };
-    applySliderTimer();
+    applyBannerTimer();
     hotInterval = applyHotTimer();
     // silder相关初始化与事件绑定注册 
-    var sliderContainer =  $('.m-sld-wrap')[0];
-    var sliderCursors = $('.u-pointer i');
-    for(var i=0;i<sliderCursors.length;i++){
-        var cursor = sliderCursors[i];
-        _.addEvent(cursor,'click', function(){
-            slider.nav(i);
-        });
+    var bannerContainer =  $('.m-sld-wrap')[0];
+    var bannerCursors = $('.u-pointer i');
+    for(var i=0;i<bannerCursors.length;i++){
+        
+        (function(){
+            var j = i;
+            var cursor = bannerCursors[j];
+            _.addEvent(cursor,'click', function(){
+                banner.nav(j);
+            });  
+        })();
+     
     }
    
-    var slider = new Slider({
+    var banner = new Banner({
         //视口容器
-        container: sliderContainer,
+        container: bannerContainer,
         // 图片列表
         images: [
         {src:'./images/banner1.jpg',href:'http://open.163.com/'}, 
@@ -44,17 +49,17 @@
         {src:'./images/banner3.jpg',href:'http://www.icourse163.org/'}        
         ],
         onMouseOver: function(){
-            clearTimeout(silderInterval);
+            clearTimeout(bannerInterval);
         },
         onMouseOut: function(){
-            applySliderTimer();
+            applyBannerTimer();
         }
     });
     // 接收事件
-    slider.on('nav', function(ev){
+    banner.on('nav', function(ev){
         var pageIndex = ev.pageIndex;
-        for(var i=0;i<sliderCursors.length;i++){
-            var cursor = sliderCursors[i];
+        for(var i=0;i<bannerCursors.length;i++){
+            var cursor = bannerCursors[i];
             if(i === pageIndex ){
                 cursor.className = 'z-active';
             }else{
@@ -63,7 +68,7 @@
         }
     });
     // 初始
-    slider.nav(0);    
+    banner.nav(0);    
     // 热门课程
     var hotContainer =  $('.m-rank-wrap')[0];
     var hotList = new HotList({

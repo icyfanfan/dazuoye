@@ -1,43 +1,39 @@
 /**
-
+    淡入淡出的banner组件
  */
-
-
 ;
 (function(_) {
 
     var template =
-        '<div class="m-slider" >\
-    <div class="u-slider"></div>\
-    <div class="u-slider"></div>\
+        '<div class="m-banner" >\
+    <div class="u-banner"></div>\
+    <div class="u-banner"></div>\
   </div>'
 
 
-    function Slider(opt) {
+    function Banner(opt) {
 
         _.extend(this, opt);
 
 
         this.container = this.container || document.body;
-        this.container.style.overflow = 'hidden';
 
-
-        this.slider = this._layout.cloneNode(true);
-        this.slides = this.slider.querySelectorAll('.u-slider');
+        this.banner = this._layout.cloneNode(true);
+        this.banners = this.banner.querySelectorAll('.u-banner');
 
         this.pageNum = this.images.length;
 
-        this.slideIndex = 1;
+        this.nextIndex = 1;
         this.pageIndex = this.pageIndex || 0;
 
 
-        this.container.appendChild(this.slider);
+        this.container.appendChild(this.banner);
 
     }
 
-    _.extend(Slider.prototype, _.emitter);
+    _.extend(Banner.prototype, _.emitter);
 
-    _.extend(Slider.prototype, {
+    _.extend(Banner.prototype, {
 
         _layout: _.html2node(template),
 
@@ -45,11 +41,9 @@
         nav: function(pageIndex) {
 
             this.pageIndex = pageIndex;
-            this.slideIndex = (this.slideIndex === 0)?1:0;            
-
-            this.slider.style.transitionDuration = '0s';
-
-            this._onNav(this.pageIndex,slideIndex);
+            this.lastIndex = this.nextIndex;
+            this.nextIndex = (this.nextIndex === 0)?1:0; 1           
+            this._onNav(this.pageIndex,this.nextIndex);
 
         },
         // 下一页
@@ -65,37 +59,33 @@
             offset = offset % this.pageNum;
             var _end = this.pageIndex + offset;
             this.pageIndex = (_end >= this.pageNum)?(_end-this.pageNum):_end;
-
-            this.slideIndex = this.slideIndex === 0?1:0;
-            this.slider.style.transitionDuration = '.5s';
-            this._onNav();
+            this.lastIndex = this.nextIndex;
+            this.nextIndex = this.nextIndex === 0?1:0;
+            this._onNav(this.pageIndex,this.nextIndex);
 
         },
 
-        _setOpacity: function(slideIndex) {
+        _setOpacity: function(nextIndex) {
 
-            var slides = this.slides;
+            var banners = this.banners;
 
+            banners[this.lastIndex].style.opacity = 0;
+            _.delClass(banners[this.lastIndex], 'z-active');
             // 当前slide 添加 'z-active'的className
-            for(var i=0;i<slides.length;i++){
-                slides[i].style.opacity =0;                   
-                _.delClass(slides[i], 'z-active');
-                
-            }
-            slides[slideIndex].style.opacity = 1;
-            _.addClass(slides[slideIndex], 'z-active');
-
+            
+            _.addClass(banners[nextIndex], 'z-active');
+            banners[nextIndex].style.opacity = 1;
         },
 
         // 触发跳转后先设置图片
-        _onNav: function(pageIndex, slideIndex) {
+        _onNav: function(pageIndex, nextIndex) {
 
-            var slides = this.slides;
+            var banners = this.banners;
 
-            var img = slides[slideIndex].querySelector('img');
+            var img = banners[nextIndex].querySelector('img');
             if (!img) {
                 img = document.createElement('img');
-                slides[index].appendChild(img);
+                banners[nextIndex].appendChild(img);
                 img.onmouseover = this.onMouseOver;
                 img.onmouseout = this.onMouseOut;
             }
@@ -109,11 +99,11 @@
                 pageIndex: pageIndex,
             })
 
-            this._setOpacity(slideIndex);
+            this._setOpacity(nextIndex);
         },
 
     })
 
-    window.Slider = Slider;
+    window.Banner = Banner;
 
 })(util);
