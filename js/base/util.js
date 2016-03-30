@@ -191,25 +191,36 @@ var util = (function() {
         },
         // ajax请求简单封装
         ajax:function(opt){
-            var _xhr = new XMLHttpRequest();
-            _xhr.onreadystatechange = function(){
-                if(_xhr.readyState == 4&&_xhr.status==200){
-                    if(!!opt.success){
-                        opt.success(_xhr.responseText)
-                    }
-                    
-                }
+            var _query = '';
+            if(opt.data){
+                _query = '?' + this.object2string(opt.data,'&',true)||'';
+            }           
+            var _xhr = this._getCORSRequest(opt.method,opt.url+_query,opt.async);
+            _xhr.onload = function(){
+                
+                if(!!opt.success){
+                    opt.success(_xhr.responseText)
+                }                    
+                
             };      
-            if (opt.type == 'post') {
-                _xhr.open('post',opt.url,opt.async||true);
+            if (opt.method == 'post') {                
                 _xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                 _xhr.send(this.object2string(opt.data,'&',true)||'');
-            } else if(opt.type == 'get'){
-                var _query = '?' + this.object2string(opt.data,'&',true)||'';
-                _xhr.open('get',opt.url+_query,opt.async||true);                
-                _xhr.send();
+            } else if(opt.method == 'get'){                     
+                _xhr.send(null);
             }
             
+        },
+        // 兼容版获取可跨域的请求对象
+        _getCORSRequest: function(method,url,async){
+            var _xhr = new XMLHttpRequest();
+            if('withCredentials' in _xhr){
+                _xhr.open(method, url, async||true);
+            } else if(this.type(XDomainRequest) != 'undefined'){
+                _xhr = new XDomainRequest();
+                _xhr.open(method, url);
+            } 
+            return _xhr;
         },
         // 判断基本类型和内置对象类型
         type:function(obj){

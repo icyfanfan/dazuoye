@@ -1,10 +1,9 @@
 (function(_){
-    // 公用方法与兼容实现 
+    // 公用选择器方法 
     var $ = function( selector ){
         if(selector.indexOf('#') != -1){
             return document.querySelector(selector);
         }else{
-            // return [].slice.call(document.querySelectorAll(selector));            
             return document.querySelectorAll(selector);            
         }
     }
@@ -38,7 +37,7 @@
         })();
      
     }
-   
+    // 轮播
     var banner = new Banner({
         //视口容器
         container: bannerContainer,
@@ -67,7 +66,7 @@
             }
         }
     });
-    // 初始
+    // 轮播初始页
     banner.nav(0);    
     // 热门课程
     var hotContainer =  $('.m-rank-wrap')[0];
@@ -96,38 +95,91 @@
         type:'20',
     });
 
-    // 登录框
+    // 关注与登录框
     var btnFavor = $('#btnFavor');
     var btnFavored = $('#btnFavored');
     var loginModal = new LoginModal();
+    var lgCookie = 'loginSuc';
+    var flCookie = 'followSuc';
+    // 初始化关注按钮状态
+    if(_.getCookie(flCookie)!=null){
+        _.addClass(btnFavor ,'f-dn');
+    }else{
+        _.addClass(btnFavored ,'f-dn');
+    }
+    // 调用关注API
+    var setFollow = function(){
+        _.ajax({
+            method:'get',
+            url:'http://study.163.com/webDev/attention.htm',
+            success:function(r){
+                if (r != 1){
+                    return;
+                }
+                // 设置关注cookie
+                _.setCookie({
+                    name:flCookie,
+                    value:true
+                });
+                _.addClass(btnFavor,'f-dn');
+                _.delClass(btnFavored,'f-dn');
+            }
+        });        
+    };
+    // 点击关注
     _.addEvent(btnFavor,'click',function(){
-        loginModal.show();
+        if(_.getCookie(lgCookie) == null){
+            // 未登录情况下弹出登录框
+            loginModal.show();
+        } else{
+            // 调用关注API
+            setFollow();
+        }       
     });
+    // 监听登录成功事件
     loginModal.on('formSubmit', function(){
-        _.addClass(btnFavor,'f-dn');
-        _.delClass(btnFavored,'f-dn');
+        // 设置登录cookie
+        _.setCookie({
+            name:lgCookie,
+            value:true
+        });
+        setFollow();
     });
+    // 取消关注
     var btnCancel = btnFavored.getElementsByTagName('a')[0];
     _.addEvent(btnCancel,'click',function(){
-        // 清除掉登陆的cookie TODO
-
+        // 清除掉已关注的cookie TODO
+        _.unsetCookie({
+            name:flCookie
+        });
         _.addClass(btnFavored,'f-dn');
         _.delClass(btnFavor,'f-dn');
     });
     // 顶部提示框
     var btnNoShow = $('.m-note .u-noshow')[0];
-    _.addEvent(btnNoShow,'click',function(){
-        var note = $('.m-note-wrap')[0];
+    var note = $('.m-note-wrap')[0];
+    var nShowCookie = 'noShow';
+    if(_.getCookie(nShowCookie)!=null){
         _.addClass(note,'f-dn');
-    })
+    }
+    _.addEvent(btnNoShow,'click',function(){ 
+        var now = new Date();
+        var expTime = '';
+        // 本地cookie，过期时间设置为1个月之后
+        _.setCookie({
+            name:nShowCookie,
+            value:true,
+            expires:new Date("")
+        });
+        _.addClass(note,'f-dn');
+    });
     // 弹出视频
     var videoModal = new Modal();
     var videoTrigger = $('.u-video img')[0];
     videoTrigger.onclick = function(e){
-        var ctn = '<div class="m-videoWrap"><p class="f-fbold">请观看下面的视频：</p><video poster="./images/poster.jpg"'+
+        var videoCtn = '<div class="m-videoWrap"><p class="f-fbold">请观看下面的视频：</p><video poster="./images/poster.jpg"'+
                 'src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4"'+
                 'width="890" height="538" controls="controls"></video></div>';
         videoModal.show(ctn);                 
     }
-    // debugger;
 })(util);

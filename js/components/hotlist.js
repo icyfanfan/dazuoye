@@ -37,7 +37,7 @@
             var that = this;
             // 获取热门课程信息
             _.ajax({
-                type:'get',
+                method:'get',
                 url:'http://study.163.com/webDev/hotcouresByCategory.htm',
                 success:function(r){                    
                     var _data = JSON.parse(r);

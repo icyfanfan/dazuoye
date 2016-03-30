@@ -76,7 +76,7 @@ html,body{width:100%;height:100%;}
 .m-tips{display:none;}
 
 .m-wrap{text-align:center;}
-.m-sld-wrap{position:relative;display:inline-block;width:1616px;height:460px;overflow:hidden}
+.m-sld-wrap{position:relative;display:inline-block;width:1616px;height:460px}
 .m-banner,.m-banner .u-banner{width:100%;height:100%;}
 .m-banner .u-banner{position: absolute;top:0;left: 0;text-align: center;background-color: #fff;}
 .m-banner .u-banner img{width: 1616px;height: 100%;cursor:pointer;}

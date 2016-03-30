@@ -185,7 +185,7 @@
         _getData: function(opt){
             opt.success = opt.success||function(){};
             _.ajax({
-                type:'get',
+                method:'get',
                 url:'http://study.163.com/webDev/couresByCategory.htm',
                 data:{pageNo:opt.pageNo,psize:20,type:this.type},
                 success:opt.success,
