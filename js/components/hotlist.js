@@ -17,6 +17,7 @@
  */
 ;
 (function(_){
+    "use strict";
     var detailTemplate =  '<img src="<%smallPhotoUrl%>" alt="图片加载失败" class="f-fl" data-id="<%id%>">' +
                                                 '<div class="u-info"><h4><%name%></h4><span><%learnerCount%></span></div>';
     var template = '<ol class="m-list2"></ol>';

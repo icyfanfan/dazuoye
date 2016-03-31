@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>网易教育产品部</title>
     <link rel="stylesheet" href="index.css">
+    <!-- 页面基础js引入，不需要在dom加载完后 -->
+    <script src='js/base/util.js'></script>
+    <script src='js/base/md5.js'></script>
 </head>
 
 <body>
     <div class="g-doc">
         <!-- 页面头部 -->
         <div class="g-hd">
-        <div class="m-note-wrap">
-            <div class="m-note">
-                <p>网易云课堂微专业，帮助你掌握专业技能，令你求职或加薪多一份独特优势！<a href="">立即查看&gt;</a></p>
-                <p class='u-noshow'>×&nbsp;不再提醒</p>
+            <div class="m-note-wrap">
+                <div class="m-note">
+                    <p>网易云课堂微专业，帮助你掌握专业技能，令你求职或加薪多一份独特优势！<a href="">立即查看&gt;</a></p>
+                    <p class='u-noshow'>×&nbsp;不再提醒</p>
+                </div>
             </div>
-        </div>
-        <div class="m-top">
-            <div class="m-logo f-fl"><h1>网易教育产品部</h1></div>
-            <div class="m-favor f-fl">
-                <span class="u-btn1" id='btnFavor'>+&nbsp;关注</span>
-                <span class="u-btn2" id='btnFavored'>√&nbsp;已关注&nbsp;&nbsp;|&nbsp;&nbsp;<a>取消</a></span>
-                <span class="u-fan">粉丝&nbsp;45</span></div>
-            <div class="m-nav f-fr">
-                <a href="">网易公开课</a><a href="">云课堂</a><a href="">中国大学MOOC</a><a class="u-icn f-fr"></a>                
-            </div>
-        </div>
-        
+            <div class="m-top">
+                <div class="m-logo f-fl"><h1>网易教育产品部</h1></div>
+                <div class="m-favor f-fl">
+                    <span class="u-btn1" id='btnFavor'>+&nbsp;关注</span>
+                    <span class="u-btn2" id='btnFavored'>√&nbsp;已关注&nbsp;&nbsp;|&nbsp;&nbsp;<a>取消</a></span>
+                    <span class="u-fan">粉丝&nbsp;45</span></div>
+                <div class="m-nav f-fr">
+                    <a href="">网易公开课</a><a href="">云课堂</a><a href="">中国大学MOOC</a><a class="u-icn f-fr"></a>                
+                </div>
+            </div>        
         </div>
         <!-- 页面体-->
         <div class="g-bd">
             <!-- 上部分 -->
             <div class="m-wrap">
-                <!-- 图片幻灯片 -->
+                <!-- 图片轮播 -->
                 <div class="m-sld-wrap f-oh">                             
                        <div class="u-pointer"><i></i><i></i><i></i></div>
-                </div>
-                
+                </div>                
                 <!-- 导航 -->
                 <div class="m-nav1 f-cb">                
                     <div class="m-ad f-fl">
@@ -112,7 +112,6 @@
                         <div class="u-title"><h3>最新排行</h3></div>
                         <div class="m-rank-wrap f-oh"></div>                        
                     </div>
-
                 </div>
             </div>
         </div>
@@ -137,11 +136,11 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    <script src='js/base/util.js'></script>
-    <script src='js/base/md5.js'></script>
+    <!-- 针对不支持media query做的响应式 -->
+    <script src="js/mediaQuery.js"></script>
+    <!-- 页面组件js引入 -->
     <script src='js/components/banner.js'></script>
     <script src='js/components/hotlist.js'></script>
     <script src='js/components/courselist.js'></script>

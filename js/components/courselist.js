@@ -15,6 +15,7 @@
  */
 ;
 (function(_){
+    "use strict";
     var detailTpl =  '<img src="<%middlePhotoUrl%>" alt="图片加载失败">'+                        
                         '<div class="u-info"><h4><%name%></h4><span class="f-fc1"><%provider%></span><span class="u-learner f-fc1">' +
                         '<%learnerCount%></span><span class="f-fc2 f-fbold">￥<%price%></span></div>';

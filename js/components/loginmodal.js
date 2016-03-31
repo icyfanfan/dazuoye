@@ -1,4 +1,5 @@
 ;(function(_){
+    "use strict";
     var lgTpl = '<div class="m-login"><div class="u-title">登录网易云课堂</div>' +
         '<form action="/login" method="get">' +
             '<div class="u-input">' +

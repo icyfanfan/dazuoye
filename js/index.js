@@ -1,4 +1,5 @@
 (function(_){
+    "use strict";
     // 公用选择器方法 
     var $ = function( selector ){
         if(selector.indexOf('#') != -1){
@@ -23,21 +24,19 @@
     };
     applyBannerTimer();
     hotInterval = applyHotTimer();
-    // silder相关初始化与事件绑定注册 
+    // 轮播组件与轮播导航按钮 
     var bannerContainer =  $('.m-sld-wrap')[0];
     var bannerCursors = $('.u-pointer i');
-    for(var i=0;i<bannerCursors.length;i++){
-        
+    for(var i=0;i<bannerCursors.length;i++){        
         (function(){
             var j = i;
             var cursor = bannerCursors[j];
             _.addEvent(cursor,'click', function(){
                 banner.nav(j);
             });  
-        })();
-     
+        })();     
     }
-    // 轮播
+    // 轮播组件初始化
     var banner = new Banner({
         //视口容器
         container: bannerContainer,
@@ -67,7 +66,7 @@
         }
     });
     // 轮播初始页
-    banner.nav(0);    
+    banner.nav(0);   
     // 热门课程
     var hotContainer =  $('.m-rank-wrap')[0];
     var hotList = new HotList({
@@ -94,7 +93,6 @@
         container:programContent,
         type:'20',
     });
-
     // 关注与登录框
     var btnFavor = $('#btnFavor');
     var btnFavored = $('#btnFavored');
@@ -163,13 +161,13 @@
         _.addClass(note,'f-dn');
     }
     _.addEvent(btnNoShow,'click',function(){ 
-        var now = new Date();
-        var expTime = '';
-        // 本地cookie，过期时间设置为1个月之后
+        // var now = new Date();
+        // var expTime = now.setFullYear(now.getFullYear()+1);
+        // 本地cookie，过期时间设置为1年之后
         _.setCookie({
             name:nShowCookie,
-            value:true,
-            expires:new Date("")
+            value:true
+            // expires:expTime
         });
         _.addClass(note,'f-dn');
     });
@@ -179,7 +177,7 @@
     videoTrigger.onclick = function(e){
         var videoCtn = '<div class="m-videoWrap"><p class="f-fbold">请观看下面的视频：</p><video poster="./images/poster.jpg"'+
                 'src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4"'+
-                'width="890" height="538" controls="controls"></video></div>';
-        videoModal.show(ctn);                 
+                'width="890" height="538" controls="controls"><div style="width:890px;height:538px;margin:0 auto;">您的浏览器不支持视频QAQ</div></video></div>';
+        videoModal.show(videoCtn);                 
     }
 })(util);

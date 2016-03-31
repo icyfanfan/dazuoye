@@ -1,4 +1,5 @@
 ;(function(_){
+    "use strict";
     function Tab(opt){
         var _opt = opt||{};
         _.extend(this, _opt);

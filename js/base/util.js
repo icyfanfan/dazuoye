@@ -1,4 +1,5 @@
 var util = (function() {
+    "use strict";
     var _cookies = document.cookie;
     // 扩展到原型上的兼容方法
     // Function.bind
@@ -105,11 +106,11 @@ var util = (function() {
         // 简单实现setDatas
         setDataSet: function(elem,datas){
             // 模拟data-key-abc的形式，将大写字母转换成小写字母并前面加上符号-            
-            for(key in datas){
-                var _key = key.replace(/[A-Z]/g,function($1){
+            for(var _key in datas){
+                var _k = _key.replace(/[A-Z]/g,function($1){
                     return '-'+$1.toLowerCase();
                 });
-                elem.setAttribute('data-'+_key,datas[key]);
+                elem.setAttribute('data-'+_k,datas[_key]);
             }
         },
         // 兼容版获取dataset对象
@@ -167,7 +168,7 @@ var util = (function() {
                 return '';
             }
             var _arr = [];
-            for (_key in obj){
+            for (var _key in obj){
                 if (!obj.hasOwnProperty(_key)){
                     continue;
                 }
@@ -189,33 +190,45 @@ var util = (function() {
             }
             return _arr.join(split||',')
         },
-        // ajax请求简单封装
+        // ajax请求
         ajax:function(opt){
-            var _query = '';
+            var _query = '',
+                _xhr = new XMLHttpRequest();
+
             if(opt.data){
                 _query = '?' + this.object2string(opt.data,'&',true)||'';
-            }           
-            var _xhr = this._getCORSRequest(opt.method,opt.url+_query,opt.async);
-            _xhr.onload = function(){
-                
-                if(!!opt.success){
-                    opt.success(_xhr.responseText)
-                }                    
-                
-            };      
+            }      
+            // 判断是否需要跨域请求     
+            if(opt.noCors){
+                _xhr.open(opt.method,opt.url+_query);    
+                _xhr.onreadystatechange = function () {
+                    if ( _xhr.readyState !== 4 || _xhr.status !== 200 && _xhr.status !== 304 ){
+                        return;
+                    }
+                    opt.success( _xhr.responseText ); 
+                }         
+            }else{
+                _xhr = this._getCORSRequest(opt.method,opt.url+_query,opt.async);
+                _xhr.onload = function(){
+                                
+                                if(!!opt.success){
+                                    opt.success(_xhr.responseText)
+                                }                    
+                }      
+            }
+
             if (opt.method == 'post') {                
                 _xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                 _xhr.send(this.object2string(opt.data,'&',true)||'');
             } else if(opt.method == 'get'){                     
                 _xhr.send(null);
-            }
-            
+            }            
         },
         // 兼容版获取可跨域的请求对象
-        _getCORSRequest: function(method,url,async){
+        _getCORSRequest: function(method,url){
             var _xhr = new XMLHttpRequest();
             if('withCredentials' in _xhr){
-                _xhr.open(method, url, async||true);
+                _xhr.open(method, url, true);
             } else if(this.type(XDomainRequest) != 'undefined'){
                 _xhr = new XDomainRequest();
                 _xhr.open(method, url);

@@ -3,13 +3,12 @@
  */
 ;
 (function(_) {
-
+    "use strict";
     var template =
         '<div class="m-banner" >\
     <div class="u-banner"></div>\
     <div class="u-banner"></div>\
   </div>'
-
 
     function Banner(opt) {
         // 合并传入配置与默认配置
@@ -24,7 +23,7 @@
 
         this.pageNum = this.images.length;
         // 初始化状态变量
-        this.nextIndex = 1;
+        this.nextIndex = this.nextIndex || 0;
         this.pageIndex = this.pageIndex || 0;
 
         // 将组件加入dom

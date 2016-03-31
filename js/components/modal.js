@@ -1,7 +1,7 @@
-/* 模态框 
-    登录+视频弹框
+/* 模态框
 */
 ;(function(_){
+    "use strict";
     var template = 
     '<div class="m-modal">\
       <div class="modal_align"></div>\
