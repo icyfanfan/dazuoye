@@ -1,3 +1,6 @@
+/**
+ * 页面入口函数，主要逻辑处理，控制各部分组件的初始化和显示 
+ */
 (function(_){
     "use strict";
     // 公用选择器方法 
@@ -8,7 +11,7 @@
             return document.querySelectorAll(selector);            
         }
     }
-    // 定时器
+    // 定时器设置与初始化
     var bannerInterval,hotInterval;
     var applyBannerTimer = function(){        
         bannerInterval = setTimeout(function(){         
@@ -23,8 +26,8 @@
         },5000);
     };
     applyBannerTimer();
-    hotInterval = applyHotTimer();
-    // 轮播组件与轮播导航按钮 
+    applyHotTimer();
+    // 轮播组件与轮播导航按钮初始化 
     var bannerContainer =  $('.m-sld-wrap')[0];
     var bannerCursors = $('.u-pointer i');
     for(var i=0;i<bannerCursors.length;i++){        
@@ -46,6 +49,7 @@
         {src:'./images/banner2.jpg',href:'http://study.163.com/'}, 
         {src:'./images/banner3.jpg',href:'http://www.icourse163.org/'}        
         ],
+        // 鼠标移入移出事件
         onMouseOver: function(){
             clearTimeout(bannerInterval);
         },
@@ -53,7 +57,7 @@
             applyBannerTimer();
         }
     });
-    // 接收事件
+    // 接收nav事件，设置导航按钮的active状态
     banner.on('nav', function(ev){
         var pageIndex = ev.pageIndex;
         for(var i=0;i<bannerCursors.length;i++){
@@ -65,14 +69,14 @@
             }
         }
     });
-    // 轮播初始页
+    // 轮播组件初始页
     banner.nav(0);   
-    // 热门课程
+    // 页面中部右侧热门课程列表初始化
     var hotContainer =  $('.m-rank-wrap')[0];
     var hotList = new HotList({
         container:hotContainer,
     });
-    // tab按钮
+    // tab按钮初始化
     var tabControl = $('#tabControl');
     var tabContent = $('#tabContent');
     var courseTab = new Tab({
@@ -80,7 +84,7 @@
         content:tabContent,
         dft:0,
     });
-    // tab内容页
+    // tab内容页初始化
     // 产品课程页
     var designContent = $('#tabDesign');
     var designCourse = new CourseList({
@@ -93,13 +97,13 @@
         container:programContent,
         type:'20',
     });
-    // 关注与登录框
+    // 关注与登录框初始化
     var btnFavor = $('#btnFavor');
     var btnFavored = $('#btnFavored');
     var loginModal = new LoginModal();
     var lgCookie = 'loginSuc';
     var flCookie = 'followSuc';
-    // 初始化关注按钮状态
+    // 关注按钮状态初始化
     if(_.getCookie(flCookie)!=null){
         _.addClass(btnFavor ,'f-dn');
     }else{
@@ -124,7 +128,7 @@
             }
         });        
     };
-    // 点击关注
+    // 关注按钮点击事件
     _.addEvent(btnFavor,'click',function(){
         if(_.getCookie(lgCookie) == null){
             // 未登录情况下弹出登录框
@@ -143,35 +147,32 @@
         });
         setFollow();
     });
-    // 取消关注
+    // 取消关注按钮点击事件
     var btnCancel = btnFavored.getElementsByTagName('a')[0];
     _.addEvent(btnCancel,'click',function(){
-        // 清除掉已关注的cookie TODO
+        // 清除掉已关注的cookie 
         _.unsetCookie({
             name:flCookie
         });
         _.addClass(btnFavored,'f-dn');
         _.delClass(btnFavor,'f-dn');
     });
-    // 顶部提示框
+    // 顶部提示框初始化
     var btnNoShow = $('.m-note .u-noshow')[0];
     var note = $('.m-note-wrap')[0];
     var nShowCookie = 'noShow';
     if(_.getCookie(nShowCookie)!=null){
         _.addClass(note,'f-dn');
     }
+    // ‘不再提示’点击事件处理
     _.addEvent(btnNoShow,'click',function(){ 
-        // var now = new Date();
-        // var expTime = now.setFullYear(now.getFullYear()+1);
-        // 本地cookie，过期时间设置为1年之后
         _.setCookie({
             name:nShowCookie,
             value:true
-            // expires:expTime
         });
         _.addClass(note,'f-dn');
     });
-    // 弹出视频
+    // 弹出视频框初始化
     var videoModal = new Modal();
     var videoTrigger = $('.u-video img')[0];
     videoTrigger.onclick = function(e){

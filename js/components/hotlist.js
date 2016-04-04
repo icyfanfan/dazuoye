@@ -1,36 +1,28 @@
-/*
-实现每次进入或刷新本页面，“热门推荐”模块中，接口返回20门课程数据，
-默认展示前10门课程，隔5秒更新一门课程，实现滚动更新热门课程的效果。
-课程数据接口见本文档的数据接口列表
-[{
-   "id":"967019",//课程ID
- "name":"和秋叶一起学职场技能",//课程名称
- "bigPhotoUrl":"http://img1.ph.126.net/eg62.png",//课程大图
- "middlePhotoUrl ":"http://img1.ph.126.net/eg62.png",//课程中图
- "smallPhotoUrl":" http://img1.ph.126.net/eg62.png ",//课程小图
- "provider ":"秋叶",//机构发布者
- "learnerCount ":"23",//在学人数
- "price ":"128",//课程价格，0为免费
- "categoryName ":"办公技能",//课程分类
- "description ":"适用人群：最适合即将实习、求职、就职的大学生，入职一、二三年的新人。别以为那些职场老人都知道！"//课程描述
-}]
+/**
+ *  @author 黄笛
+ *  @description 热门列表组件，
+ *  初始化时获取热门课程数据，并生成热门课程列表中的节点
+ *  index中设置了5s的定时器，每5s移动列表一个项目
+ *  通过绝对定位改变top值得方式移动列表
  */
 ;
 (function(_){
     "use strict";
+    // 热门列表每一项li标签内容模板
     var detailTemplate =  '<img src="<%smallPhotoUrl%>" alt="图片加载失败" class="f-fl" data-id="<%id%>">' +
-                                                '<div class="u-info"><h4><%name%></h4><span><%learnerCount%></span></div>';
+                          '<div class="u-info"><h4><%name%></h4><span><%learnerCount%></span></div>';
+    // 热门列表模板
     var template = '<ol class="m-list2"></ol>';
 
     function HotList(opt){
-        var _opt = opt || {};
-        _.extend(this, _opt);
+        var opt = opt || {};
+        _.extend(this, opt);
         this.container = this.container||document.body;
         this._init();
-    }
-    
+    }    
 
     _.extend(HotList.prototype, {
+        // 初始化热门列表标签和数据并加入到页面容器中
         _init: function(){
             this.moveup = true
             // 初始化容器html结构
@@ -49,9 +41,11 @@
                             name:_data[i].name,                
                             learnerCount:_data[i].learnerCount
                          };
+                         // 将数据插入到模板
                          var _li = _.parseTemplate(detailTemplate,_item);
                          var newLi = document.createElement('li');
                          newLi.innerHTML = _li;
+                         // 将li节点加入到热门课程列表
                          that.list.appendChild(newLi);
                     }                                       
                 }
@@ -59,15 +53,16 @@
             // 加入容器中
             this.container.appendChild(this.list); 
         },
+        // 控制列表移动一步
         nxt: function(){
             this._move();
         },
+        // 控制列表移动方向
         _move: function(){
             var _top = parseInt(this.list.style.top.slice(0,-2));
             if(isNaN(_top)){
                 _top = 0;
             }
-            // var that = this;
             if(_top >-690 && this.moveup){
                 var length = 0;
                 _top = this._stepUp(_top,length);
@@ -78,6 +73,7 @@
 
             }            
         },
+        // 向上移动，即回到起点
         _stepUp:function(top,length){   
             var that = this; 
             this.timer1 = setTimeout(function(){
@@ -91,6 +87,7 @@
                 }               
             }, 10);            
         },
+        // 向下移动
         _stepDown:function(top){
             var that = this; 
             this.timer2 = setTimeout(function(){

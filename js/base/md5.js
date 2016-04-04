@@ -1,3 +1,4 @@
+//为了使用md5加密引入的库
 /*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
  * Digest Algorithm, as defined in RFC 1321.

@@ -1,5 +1,8 @@
 /**
-    淡入淡出的banner组件
+ *  @author 黄笛
+ *  @description 淡入淡出的banner组件，
+ *  使用两个div标签交替设置透明度为0和1实现淡入淡出效果
+ *  为兼容，淡入淡出效果用定时器
  */
 ;
 (function(_) {
@@ -12,8 +15,8 @@
 
     function Banner(opt) {
         // 合并传入配置与默认配置
-        var _opt = opt || {contianer:document.body,images:[],onMouseOver:function(){},onMouseOut:function(){}};
-        _.extend(this, _opt);
+        var opt = opt || {contianer:document.body,images:[],onMouseOver:function(){},onMouseOut:function(){}};
+        _.extend(this, opt);
 
         // 初始化组件节点
         this.container = this.container || document.body;
@@ -62,15 +65,14 @@
         // 使用定时器实现500ms淡入效果
         _easeIn: function(elem,opacity){
             var that = this;
-            var _opacity = opacity;
             this.timer1 = setTimeout(function(){    
-                _opacity += 2;
-                that._setOpacity(elem,_opacity);
-                if (_opacity>=100){
-                    _opacity = 100;
+                opacity += 2;
+                that._setOpacity(elem,opacity);
+                if (opacity>=100){
+                    opacity = 100;
                     clearTimeout(that.timer1);                    
                 }  else{
-                    that._easeIn(elem,_opacity);
+                    that._easeIn(elem,opacity);
                 }                        
             }, 10);            
         },
